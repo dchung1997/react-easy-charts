@@ -163,10 +163,10 @@ function LineChart({
     factor = 2,
     x = "x",
     y = "y",
-    marginTop = 10,
-    marginBottom = 25,
-    marginLeft = 30,
-    marginRight = 10,
+    marginTop = 20,
+    marginBottom = 20,
+    marginLeft = 20,
+    marginRight = 20,
 }: LineChartProps) {
     const svgRef = useRef();
 
@@ -207,8 +207,8 @@ function LineChart({
         const yAxis = d3.axisLeft(scaleY);
         
         svg.select(".x-axis")
-            .attr("transform", `translate(${marginLeft},${height-marginBottom})`) // we need to fix this.
-            .call(xAxis.tickSize(-height + marginTop))
+            .attr("transform", `translate(0,${height-marginBottom})`) // we need to fix this.
+            .call(xAxis.tickSize(-height + marginTop * 2))
             .call(g => g.select(".domain")
                 .remove())
             .call(g => g.selectAll(".tick line")
@@ -217,7 +217,7 @@ function LineChart({
 
         svg.select(".y-axis")
             .attr("transform", `translate(${marginLeft},0)`)
-            .call(yAxis.tickSize(-width))
+            .call(yAxis.tickSize(-width + marginRight * 2))
             .call(g => g.select(".domain")
                 .remove())
             .call(g => g.selectAll(".tick line")
@@ -235,7 +235,7 @@ function LineChart({
     }, [data, scale, factor, height, width, x, y, marginTop, marginLeft, marginRight, marginBottom])
 
 const containerStyle = {
-    "max-width": width
+    maxWidth : width
 } 
 
 return (
