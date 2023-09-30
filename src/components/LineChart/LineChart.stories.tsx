@@ -5145,9 +5145,19 @@ export const Primary: Story = {
         }
       ],
       height: 400,
-      width: 400,
+      width: 600,
       x: "date",
-      y: "close"
+      y: "close",
+      scale: "linear",
+      factor: 2
     }
 
   }
+
+  export const Empty: Story = {
+    args: {
+      data: [],
+      width: 400,
+      height: 400,
+    },
+  };

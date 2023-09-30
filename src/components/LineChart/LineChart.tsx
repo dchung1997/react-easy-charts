@@ -31,13 +31,18 @@ export interface LineChartProps {
     width?: number;
     height?: number;
 
+    marginTop?: number;
+    marginBottom?: number;
+    marginLeft?: number;
+    marginRight?: number;
+
 }
 
 function getScaleType(scale: "linear" | "exp" | "log", factor: number | undefined) {
     const lowercaseScale = scale.toLowerCase();
 
     if (lowercaseScale == "exp") {
-        if (factor != undefined) {
+        if (factor !== null || factor !== undefined) {
             return d3.scalePow().exponent(factor);
         } else {
             try {
@@ -48,7 +53,7 @@ function getScaleType(scale: "linear" | "exp" | "log", factor: number | undefine
             return undefined;
         }
     } else if (lowercaseScale == "log") {
-        if (factor != undefined) {
+        if (factor !== null || factor !== undefined) {
             return d3.scaleLog().base(factor);
         } else {
             try {
@@ -63,6 +68,80 @@ function getScaleType(scale: "linear" | "exp" | "log", factor: number | undefine
     }
 }
 
+function getScaleX(data: [], width: number, accessor: string, marginLeft:number, marginRight:number, scale: "linear" | "exp" | "log", factor?: number) {
+    // Peak into first element and decide what to do.
+    const val = data[0][accessor]
+    const elementType = typeof val;
+
+    switch(elementType) {
+        case "number":
+            let scaleX = getScaleType(scale, factor);
+            const max = d3.max(data, (d) => d[accessor]);
+            if (scaleX === undefined) {
+                return undefined;
+            }
+
+            // Check to see if the scale is exponential and set domain to 0.001 instead of 0 due to how logmarthimic scales work.
+            if (scale.toLocaleLowerCase() == "exp") {
+                scaleX.domain([0.001, max]).range([marginLeft, width-marginRight]);
+            } else {
+                scaleX.domain([0, max]).range([marginLeft, width-marginRight]);
+            }
+            return scaleX;
+
+        case "string":
+            const dateCheck = new Date(val);
+            if (dateCheck instanceof Date && dateCheck != "Invalid Date") {
+                const extent = d3.extent(data, (d) => new Date(d[accessor]));
+                return d3.scaleTime().domain(extent).range([marginLeft, width-marginRight])
+            } else {
+                const categories = Array.from(new Set(data.map(d => d[accessor])));
+                return d3.scaleBand().domain(categories).range([marginLeft, width-marginRight])
+            }
+
+        case "object":
+            if (elementType instanceof Date) {
+                const extent = d3.extent(data, (d) => d[accessor]);
+                return d3.scaleTime().domain(extent).range([marginLeft, width-marginRight])
+            } else {
+                try {
+                    throw new TypeError("Object type for Line Chart requires Date Objects.");
+                } catch (e) {
+                    console.error(e.stack); // Stack of the error
+                }
+                return undefined;                
+            }
+
+        default:
+            try {
+                throw new TypeError("Unsupported data type for Line Chart.");
+            } catch (e) {
+                console.error(e.stack); // Stack of the error
+            }
+            return undefined;
+    }
+}
+
+function getScaleY(data:[], height:number, accessor:string, marginBottom:number, marginTop: number,  scale: "linear" | "exp" | "log", factor?: number) {
+    let scaleY = getScaleType(scale, factor);
+    
+    if (scaleY === undefined) {
+        return undefined;
+    }
+    
+    // we might want min values as well.
+    const max = d3.max(data, (d) => d[accessor]);
+    
+    if (scale.toLocaleLowerCase() == "exp") {
+        scaleY.domain([0.001, max]).range([height-marginBottom, marginTop]);
+    } else {
+        scaleY.domain([0, max]).range([height-marginBottom, marginTop]);
+    }
+
+    return scaleY;
+    // line.y((d) => scaleY(d[y]));
+}
+
 /**
  * A simple line chart, it should be able to create a line from a set of points.
  * The chart must be able to take multiple sets of points and display them accordingly.
@@ -71,18 +150,22 @@ function getScaleType(scale: "linear" | "exp" | "log", factor: number | undefine
  * Should be able to accept date time, strings, and numbers.
  */
 function LineChart({
-    scale = "linear",
-    factor,
     data = [],
     width = 400,
     height = 400,
+    scale = "linear",
+    factor = 2,
     x = "x",
-    y = "y"
+    y = "y",
+    marginTop = 10,
+    marginBottom = 25,
+    marginLeft = 30,
+    marginRight = 10,
 }: LineChartProps) {
     const svgRef = useRef();
 
     useEffect(() => {
-        if (data.length === 0 || data === null || data === undefined) {
+        if (data === null || data === undefined || data.length === 0) {
             try {
                 throw new Error("Data must not be empty, undefined, or null for Line Chart");
             } catch (e) {
@@ -92,68 +175,26 @@ function LineChart({
         }
 
         const svg = d3.select(svgRef.current);
-        let scaleY = getScaleType(scale, factor);
-        let scaleX;
-        let line = d3.line();
-        
-        // Peak into first element and decide what to do.
-        let val = data[0][x]
-        if (typeof val === 'number' ) {
-            scaleX = getScaleType(scale, factor);
-            const max = d3.max(data, (d) => d[x]);
-            scaleX.domain([0, max]).range([10, width-20]);    
-            
-            line.x((d) => scaleX(d[x]));
-            line.y((d) => scaleY(d[y]));                    
+        let scaleX = getScaleX(data, width, x, marginLeft, marginRight, scale, factor);
+        let scaleY = getScaleY(data, height, y, marginBottom, marginTop,  scale, factor);
 
-        } else if (typeof val === 'string') {
-            // Check if string is a date.
-            const dateCheck = new Date(val);
-            if (dateCheck instanceof Date && dateCheck != "Invalid Date") { 
-                // Check Dates instead.
-                const extent = d3.extent(data, (d) => new Date(d[x]));
-
-                scaleX = d3.scaleTime().domain(extent).range([30, width-10])
-
-                line.x((d) => scaleX(new Date(d[x])));
-                line.y((d) => scaleY(d[y]));
-            } else {
-                // I want to grab all possible unique names for y.
-                const categories = Array.from(new Set(data.map(d => d[x])));
-                scaleX = d3.scaleBand().domain(categories).range([10, width-10])
-            }
-        } else if (typeof val === 'object') {
-            if (val instanceof Date) {
-                const extent = d3.extent(data, (d) => d[x]);
-                scaleX = d3.scaleTime().domain(extent).range([10, width-10])
-            } else {
-                try {
-                    throw new TypeError("Object type for Line Chart requires Date Objects.");
-                } catch (e) {
-                    console.error(e.stack); // Stack of the error
-                }
-                return undefined;
-            }
-        }
-
-        if (scaleY == undefined) {
-            return undefined;
-        }
-        
-        if (scaleX == undefined) {
+        if (scaleY === undefined || scaleX === undefined) {
             return undefined;
         }
 
-        const max = d3.max(data, (d) => d[y])
-        // We're going to need to fix this once we work on margins.
-        // We don't actually know if this should be zero...
-        scaleY.domain([0, max]).range([height-25, 10]);        
+        let line = d3.line();    
+        if (new Date(data[0][x]) instanceof Date) {
+            line.x((d) => scaleX(new Date(d[x])));
+        } else {
+            line.x((d) => scaleX(d[x]));        
+        }
+        line.y((d) => scaleY(d[y]));
 
         const xAxis = d3.axisBottom(scaleX);
         const yAxis = d3.axisLeft(scaleY);
         
         svg.select(".x-axis")
-            .attr("transform", `translate(30,${height-20})`) // TODO: Add margin later.
+            .attr("transform", `translate(${marginLeft},${height-marginRight})`)
             .call(xAxis.tickSize(-height))
             .call(g => g.select(".domain")
                 .remove())
@@ -162,7 +203,7 @@ function LineChart({
                 .attr("stroke-dasharray", "2,2"));         
 
         svg.select(".y-axis")
-            .attr("transform", `translate(${30},0)`)
+            .attr("transform", `translate(${marginLeft},0)`)
             .call(yAxis.tickSize(-width))
             .call(g => g.select(".domain")
                 .remove())
@@ -193,16 +234,13 @@ function LineChart({
         // return (
         //     svg.
         // )
-    }, [data, scale, factor, height, width])
+    }, [data, scale, factor, height, width, x, y, marginTop, marginLeft, marginRight, marginBottom])
 
 return (
-    <div>
-        <h3> Hello World </h3>
-        <svg width={width} height={height} ref={svgRef} viewBox={"0 0 " + width + " " + height}>
-            <g className="x-axis"></g>
-            <g className="y-axis"></g>
-        </svg>
-    </div>
+    <svg width={width} height={height} ref={svgRef}>
+        <g className="x-axis"></g>
+        <g className="y-axis"></g>
+    </svg>
 )};
 
 export default LineChart;
