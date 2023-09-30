@@ -1,6 +1,7 @@
 import React, { useRef, useEffect, Fragment } from "react";
-import classNames from "classnames";
 import * as d3 from "d3";
+
+import './LineChart.css'
 
 export interface LineChartProps {
 
@@ -27,6 +28,12 @@ export interface LineChartProps {
      */
     x?: string;
     y?: string;
+    
+    legend?: boolean;
+    legendPos?: "top" | "bottom" | "left" | "right";
+
+    title?: string;
+    titleAlignment?: string;
 
     width?: number;
     height?: number;
@@ -82,7 +89,7 @@ function getScaleX(data: [], width: number, accessor: string, marginLeft:number,
             }
 
             // Check to see if the scale is exponential and set domain to 0.001 instead of 0 due to how logmarthimic scales work.
-            if (scale.toLocaleLowerCase() == "exp") {
+            if (scale.toLocaleLowerCase() == "log") {
                 scaleX.domain([0.001, max]).range([marginLeft, width-marginRight]);
             } else {
                 scaleX.domain([0, max]).range([marginLeft, width-marginRight]);
@@ -132,14 +139,13 @@ function getScaleY(data:[], height:number, accessor:string, marginBottom:number,
     // we might want min values as well.
     const max = d3.max(data, (d) => d[accessor]);
     
-    if (scale.toLocaleLowerCase() == "exp") {
+    if (scale.toLocaleLowerCase() == "log") {
         scaleY.domain([0.001, max]).range([height-marginBottom, marginTop]);
     } else {
         scaleY.domain([0, max]).range([height-marginBottom, marginTop]);
     }
 
     return scaleY;
-    // line.y((d) => scaleY(d[y]));
 }
 
 /**
@@ -174,6 +180,12 @@ function LineChart({
             return undefined;
         }
 
+
+        // Maybe we should add a check to see the data type.
+        // we have an array of objects, those objects then can be used to derive their implicit values.
+        // check each object in array for type data
+        // throw error if conditions.        
+
         const svg = d3.select(svgRef.current);
         let scaleX = getScaleX(data, width, x, marginLeft, marginRight, scale, factor);
         let scaleY = getScaleY(data, height, y, marginBottom, marginTop,  scale, factor);
@@ -182,7 +194,8 @@ function LineChart({
             return undefined;
         }
 
-        let line = d3.line();    
+        let line = d3.line();  
+        // We're performing this operation multiple times, we should only be doing this once if at all.  
         if (new Date(data[0][x]) instanceof Date) {
             line.x((d) => scaleX(new Date(d[x])));
         } else {
@@ -194,8 +207,8 @@ function LineChart({
         const yAxis = d3.axisLeft(scaleY);
         
         svg.select(".x-axis")
-            .attr("transform", `translate(${marginLeft},${height-marginRight})`)
-            .call(xAxis.tickSize(-height))
+            .attr("transform", `translate(${marginLeft},${height-marginBottom})`) // we need to fix this.
+            .call(xAxis.tickSize(-height + marginTop))
             .call(g => g.select(".domain")
                 .remove())
             .call(g => g.selectAll(".tick line")
@@ -219,28 +232,20 @@ function LineChart({
             .attr("fill", "none")
             .attr("stroke", "black");            
 
-        // Have points for non timescale data.
-        // svg.selectAll(".point")
-        //     .data(data)
-        //     .join("circle")
-        //     .attr("class", "point")
-        //     .attr('cx', (d) => scaleX(d[x]))
-        //     .attr('cy', (d) => scaleY(d[y]))
-        //     .attr('r', 5)
-        //     .attr('stroke', 'black')
-        //     .attr('fill', '#69a3b2');                     
-
-
-        // return (
-        //     svg.
-        // )
     }, [data, scale, factor, height, width, x, y, marginTop, marginLeft, marginRight, marginBottom])
 
+const containerStyle = {
+    "max-width": width
+} 
+
 return (
-    <svg width={width} height={height} ref={svgRef}>
-        <g className="x-axis"></g>
-        <g className="y-axis"></g>
-    </svg>
+    <div className="linechart-container" style={containerStyle}>
+        <svg ref={svgRef} viewBox={0 + " " + 0 + " " +  width + " " + height} preserveAspectRatio="xMidYMid meet">
+            <g className="x-axis"></g>
+            <g className="y-axis"></g>
+        </svg>
+    </div>
+
 )};
 
 export default LineChart;
