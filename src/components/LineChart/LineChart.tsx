@@ -75,7 +75,7 @@ function getScaleType(scale: "linear" | "exp" | "log", factor: number | undefine
     }
 }
 
-function getScaleX(data: [], width: number, accessor: string, marginLeft:number, marginRight:number, scale: "linear" | "exp" | "log", factor?: number) {
+function getScaleX(data: Array<object>, width: number, accessor: string, marginLeft:number, marginRight:number, scale: "linear" | "exp" | "log", factor?: number) {
     // Peak into first element and decide what to do.
     const val = data[0]["data"][0][accessor]
     const elementType = typeof val;
@@ -129,7 +129,7 @@ function getScaleX(data: [], width: number, accessor: string, marginLeft:number,
     }
 }
 
-function getScaleY(data:[], height:number, accessor:string, marginBottom:number, marginTop: number,  scale: "linear" | "exp" | "log", factor?: number) {
+function getScaleY(data:Array<object>, height:number, accessor:string, marginBottom:number, marginTop: number,  scale: "linear" | "exp" | "log", factor?: number) {
     let scaleY = getScaleType(scale, factor);
     
     if (scaleY === undefined) {
@@ -176,7 +176,7 @@ function LineChart({
     useEffect(() => {
         if (data === null || data === undefined || data.length === 0) {
             try {
-                throw new Error("Data must not be empty, undefined, or null for Line Chart");
+                throw new Error("Data must not be empty, undefined, or null for Line Chart.");
             } catch (e) {
                 console.error(e.stack); // Stack of the error
             }
