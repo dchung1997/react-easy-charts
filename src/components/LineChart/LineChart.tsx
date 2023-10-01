@@ -84,14 +84,23 @@ function getScaleX(data: Array<object>, width: number, accessor: string, marginL
     switch(elementType) {
         case "number":
             let scaleX = getScaleType(scale, factor);
-            const max = d3.max(nestedArr, (d) => d[accessor]);
+            const extent = d3.extent(nestedArr, (d) => d[accessor]);
+            const max = extent[1];
+            const min = extent[0];
 
             if (scaleX === undefined) {
                 return undefined;
             }
             // Check to see if the scale is exponential and set domain to 0.001 instead of 0 due to how logmarthimic scales work.
             if (scale.toLocaleLowerCase() == "log") {
-                scaleX.domain([0.001, max]).range([marginLeft, width-marginRight]);
+                if (min < 1) {
+                    try {
+                        throw new Error("Log Scale requires minimum value of at least 1.");
+                    } catch (e) {
+                        console.error(e.stack); // Stack of the error
+                    }                           
+                }
+                scaleX.domain([1, max]).range([marginLeft, width-marginRight]);
             } else {
                 scaleX.domain([0, max]).range([marginLeft, width-marginRight]);
             }
@@ -139,10 +148,19 @@ function getScaleY(data:Array<object>, height:number, accessor:string, marginBot
     
     // we might want min values as well.
     const nestedArr = data.flatMap((d) => d['data']);    
-    const max = d3.max(nestedArr, (d) => d[accessor]);
+    const extent = d3.extent(nestedArr, (d) => d[accessor]);
+    const max = extent[1];
+    const min = extent[0];
     
     if (scale.toLocaleLowerCase() == "log") {
-        scaleY.domain([0.001, max]).range([height-marginBottom, marginTop]);
+        if (min < 1) {
+            try {
+                throw new Error("Log Scale requires minimum value of at least 1.");
+            } catch (e) {
+                console.error(e.stack); // Stack of the error
+            }                           
+        }        
+        scaleY.domain([1, max]).range([height-marginBottom, marginTop]);
     } else {
         scaleY.domain([0, max]).range([height-marginBottom, marginTop]);
     }
