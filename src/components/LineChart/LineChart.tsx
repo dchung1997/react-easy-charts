@@ -130,7 +130,7 @@ function getScaleX(data: Array<object>, width: number, accessor: string, marginL
 
         default:
             try {
-                throw new TypeError("Unsupported data type for Line Chart.");
+                throw new TypeError("Unsupported data type for Line Chart. Did you set up your accessors?");
             } catch (e) {
                 console.error(e.stack); // Stack of the error
             }
