@@ -218,7 +218,9 @@ function LineChart({
          * ]
          */
 
-        const peakHead = data[0]["data"][0][x];
+        // we need to check if data is formatted properly.
+         const peakHead = data[0]["data"][0][x];
+
         if (isNaN(peakHead) && new Date(peakHead) != "Invalid Date") {
             data.forEach(function(e){
                 e["data"].forEach(function(d){
@@ -236,8 +238,14 @@ function LineChart({
             return undefined;
         }
 
-        let line = d3.line();   
-        line.x((d) => scaleX(d[x]));        
+        let line = d3.line();
+        
+        line.x((d) =>
+            typeof peakHead === "string"
+                ? scaleX(d[x]) + scaleX.bandwidth() / 2
+                : scaleX(d[x])
+        );
+
         line.y((d) => scaleY(d[y]));
 
         const xAxis = d3.axisBottom(scaleX);

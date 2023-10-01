@@ -12,7 +12,7 @@ export default meta;
 
 type Story = StoryObj<typeof LineChart>;
 
-export const Primary: Story = {
+export const Numeric: Story = {
     args: {
       data: [
         {
@@ -98,6 +98,17 @@ export const Primary: Story = {
       factor: 2
     }
 
+  }
+
+  export const Categorical: Story = {
+    args: {
+      data: [
+        {
+          id:1,
+          data:[{"x":"B","y":8},{"x":"E","y":73},{"x":"D","y":36},{"x":"C","y":88}]
+        }
+      ]
+    }
   }
 
   export const Empty: Story = {
