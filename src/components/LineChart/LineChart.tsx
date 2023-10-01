@@ -49,7 +49,7 @@ function getScaleType(scale: "linear" | "exp" | "log", factor: number | undefine
     const lowercaseScale = scale.toLowerCase();
 
     if (lowercaseScale == "exp") {
-        if (factor !== null || factor !== undefined) {
+        if ((factor !== null || factor !== undefined) && typeof factor === "number") {
             return d3.scalePow().exponent(factor);
         } else {
             try {
@@ -60,7 +60,7 @@ function getScaleType(scale: "linear" | "exp" | "log", factor: number | undefine
             return undefined;
         }
     } else if (lowercaseScale == "log") {
-        if (factor !== null || factor !== undefined) {
+        if ((factor !== null || factor !== undefined) && typeof factor === "number") {
             return d3.scaleLog().base(factor);
         } else {
             try {
@@ -77,38 +77,38 @@ function getScaleType(scale: "linear" | "exp" | "log", factor: number | undefine
 
 function getScaleX(data: [], width: number, accessor: string, marginLeft:number, marginRight:number, scale: "linear" | "exp" | "log", factor?: number) {
     // Peak into first element and decide what to do.
-    const val = data[0][accessor]
+    const val = data[0]["data"][0][accessor]
     const elementType = typeof val;
+    const nestedArr = data.flatMap((d) => d['data']);
 
     switch(elementType) {
         case "number":
             let scaleX = getScaleType(scale, factor);
-            const max = d3.max(data, (d) => d[accessor]);
+            const max = d3.max(nestedArr, (d) => d[accessor]);
+
             if (scaleX === undefined) {
                 return undefined;
             }
-
             // Check to see if the scale is exponential and set domain to 0.001 instead of 0 due to how logmarthimic scales work.
             if (scale.toLocaleLowerCase() == "log") {
                 scaleX.domain([0.001, max]).range([marginLeft, width-marginRight]);
             } else {
                 scaleX.domain([0, max]).range([marginLeft, width-marginRight]);
             }
+
             return scaleX;
 
         case "string":
-            const dateCheck = new Date(val);
-            if (dateCheck instanceof Date && dateCheck != "Invalid Date") {
-                const extent = d3.extent(data, (d) => new Date(d[accessor]));
-                return d3.scaleTime().domain(extent).range([marginLeft, width-marginRight])
-            } else {
-                const categories = Array.from(new Set(data.map(d => d[accessor])));
-                return d3.scaleBand().domain(categories).range([marginLeft, width-marginRight])
-            }
+            const categories = Array.from(new Set(nestedArr.map(function(e) {
+                return e[accessor];
+            })));
+
+            return d3.scaleBand().domain(categories).range([marginLeft, width-marginRight])
 
         case "object":
-            if (elementType instanceof Date) {
-                const extent = d3.extent(data, (d) => d[accessor]);
+            if (val instanceof Date) {
+                const extent = d3.extent(nestedArr, (d) => d[accessor]);
+
                 return d3.scaleTime().domain(extent).range([marginLeft, width-marginRight])
             } else {
                 try {
@@ -135,9 +135,11 @@ function getScaleY(data:[], height:number, accessor:string, marginBottom:number,
     if (scaleY === undefined) {
         return undefined;
     }
+
     
     // we might want min values as well.
-    const max = d3.max(data, (d) => d[accessor]);
+    const nestedArr = data.flatMap((d) => d['data']);    
+    const max = d3.max(nestedArr, (d) => d[accessor]);
     
     if (scale.toLocaleLowerCase() == "log") {
         scaleY.domain([0.001, max]).range([height-marginBottom, marginTop]);
@@ -159,6 +161,7 @@ function LineChart({
     data = [],
     width = 400,
     height = 400,
+    title,
     scale = "linear",
     factor = 2,
     x = "x",
@@ -184,7 +187,28 @@ function LineChart({
         // Maybe we should add a check to see the data type.
         // we have an array of objects, those objects then can be used to derive their implicit values.
         // check each object in array for type data
-        // throw error if conditions.        
+        // throw error if conditions.
+        /**
+         * [
+         *  {
+         *      id: string
+         *      data: [
+         *          accessorX:
+         *          accessorY:
+         *      ],
+         *  }
+         * ]
+         */
+
+        const peakHead = data[0]["data"][0][x];
+        if (isNaN(peakHead) && new Date(peakHead) != "Invalid Date") {
+            data.forEach(function(e){
+                e["data"].forEach(function(d){
+                    d[x] = new Date(d[x])
+                })
+            })
+        }
+
 
         const svg = d3.select(svgRef.current);
         let scaleX = getScaleX(data, width, x, marginLeft, marginRight, scale, factor);
@@ -194,13 +218,8 @@ function LineChart({
             return undefined;
         }
 
-        let line = d3.line();  
-        // We're performing this operation multiple times, we should only be doing this once if at all.  
-        if (new Date(data[0][x]) instanceof Date) {
-            line.x((d) => scaleX(new Date(d[x])));
-        } else {
-            line.x((d) => scaleX(d[x]));        
-        }
+        let line = d3.line();   
+        line.x((d) => scaleX(d[x]));        
         line.y((d) => scaleY(d[y]));
 
         const xAxis = d3.axisBottom(scaleX);
@@ -208,31 +227,41 @@ function LineChart({
         
         svg.select(".x-axis")
             .attr("transform", `translate(0,${height-marginBottom})`) // we need to fix this.
-            .call(xAxis.tickSize(-height + marginTop * 2))
+            .call(xAxis.tickSize(-height + marginTop))
             .call(g => g.select(".domain")
                 .remove())
             .call(g => g.selectAll(".tick line")
-                .attr("stroke-opacity", 0.5) 
-                .attr("stroke-dasharray", "2,2"));         
+                .attr("stroke-opacity", 0.1));
 
         svg.select(".y-axis")
             .attr("transform", `translate(${marginLeft},0)`)
-            .call(yAxis.tickSize(-width + marginRight * 2))
+            .call(yAxis.tickSize(-width + marginRight))
             .call(g => g.select(".domain")
                 .remove())
             .call(g => g.selectAll(".tick line")
-                .attr("stroke-opacity", 0.5)
-                .attr("stroke-dasharray", "2,2"));        
+                .attr("stroke-opacity", 0.1));
         
         svg.selectAll(".line")
-            .data([data])
+            .data(data)
             .join("path")
             .attr("class", "line")
-            .attr("d", line)
+            .attr("d", function(d) {
+                return line(d["data"])
+            })
             .attr("fill", "none")
             .attr("stroke", "black");            
 
-    }, [data, scale, factor, height, width, x, y, marginTop, marginLeft, marginRight, marginBottom])
+    }, [data, scale, factor, height, width, x, y, marginTop, marginLeft, marginRight, marginBottom]);
+
+function Title() {
+    if (title === undefined || title === null || title === "") {
+        return null;
+    }
+
+    return (
+        <h3> {title} </h3>
+    )
+}
 
 const containerStyle = {
     maxWidth : width
@@ -240,6 +269,7 @@ const containerStyle = {
 
 return (
     <div className="linechart-container" style={containerStyle}>
+        <Title/>
         <svg ref={svgRef} viewBox={0 + " " + 0 + " " +  width + " " + height} preserveAspectRatio="xMidYMid meet">
             <g className="x-axis"></g>
             <g className="y-axis"></g>
