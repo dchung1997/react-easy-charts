@@ -241,7 +241,7 @@ function LineChart({
         let line = d3.line();
         
         line.x((d) =>
-            typeof peakHead === "string" && isNaN(peakHead) && new Date(peakHead) != "Invalid Date"
+            typeof peakHead === "string" && isNaN(peakHead) && new Date(peakHead) == "Invalid Date"
                 ? scaleX(d[x]) + scaleX.bandwidth() / 2
                 : scaleX(d[x])
         );
