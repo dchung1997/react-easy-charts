@@ -1,3 +1,7 @@
 .linechart-container {
     width:100%;
 }
+
+.linechart-container h3 {
+    margin: 0;
+}

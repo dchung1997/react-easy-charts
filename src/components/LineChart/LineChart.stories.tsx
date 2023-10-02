@@ -78,6 +78,7 @@ export const Numeric: Story = {
       ],
       width: 500,
       height: 300,
+      marginLeft: 30
     },
   };
   

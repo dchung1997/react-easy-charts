@@ -35,7 +35,7 @@ export interface LineChartProps {
     legendPos?: "top" | "bottom" | "left" | "right";
 
     title?: string;
-    titleAlignment?: string;
+    titleAlignment?: "left" | "right" | "center";
 
     width?: number;
     height?: number;
@@ -182,6 +182,7 @@ function LineChart({
     width = 400,
     height = 400,
     title,
+    titleAlignment="center",
     scale = "linear",
     factor = 2,
     x = "x",
@@ -258,7 +259,7 @@ function LineChart({
         
         svg.select(".x-axis")
             .attr("transform", `translate(0,${height-marginBottom})`) // we need to fix this.
-            .call(xAxis.tickSize(-height + marginTop))
+            .call(xAxis.tickSize(-height + marginTop*2))
             .call(g => g.select(".domain")
                 .remove())
             .call(g => g.selectAll(".tick line")
@@ -289,10 +290,18 @@ function Title() {
         return null;
     }
 
+    const titleStyle = {
+        textAlign: titleAlignment
+    }
+
     return (
-        <h3> {title} </h3>
+        <h3 style={titleStyle}> {title} </h3>
     )
 }
+
+// function Legend() {
+//     <s
+// }
 
 const containerStyle = {
     maxWidth : width
