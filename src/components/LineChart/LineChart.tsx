@@ -182,7 +182,7 @@ function getScaleY(data:Array<object>, height:number, accessor:string, marginBot
 
 /**
  * A simple responsive line chart component, it can take a single or multiple different entries and visualize them onto the chart.
- * It's capable of determining the types of the elements pass in. Easily customizable to allow for usage without additional bloat from custom css.
+ * It's capable of determining the types of the elements passed in. Easily customizable to allow for usage without additional bloat from custom css.
  * Allows for custom accessors but requires for data to still be formatted in correct structure. Can accept dates, strings (categorical values), and numbers. 
  */
 function LineChart({
