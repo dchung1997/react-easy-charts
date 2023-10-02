@@ -15,19 +15,29 @@ export interface LineChartProps {
      */
     factor?: number;
 
-    /**
-     * Is there a better way to show a data requirement?
-     * Data could be a single element or multiple
-     * Data can be categorical, x:string, y: numeric.
-     * Data could also be time series. x:date, y: numeric.
-     */
-    data: [];
+
+    data: [ 
+        {
+            id: string,
+            data: [
+                {
+                    accessorX: number | string | object,
+                    accessorY: number
+                }
+            ]
+        }
+    
+    ];
 
     /**
-     * Accessors for data for convienent use.
+     * For finding the x value in data if not setup to be x explicitly.
      */
     x?: string;
+    /**
+     * For finding the y value in data if not setup to be y explicitly.
+     */    
     y?: string;
+    
     
     points?: boolean;
 
@@ -178,7 +188,7 @@ function getScaleY(data:Array<object>, height:number, accessor:string, marginBot
  * Should be able to accept date time, strings, and numbers.
  */
 function LineChart({
-    data = [],
+    data,
     width = 400,
     height = 400,
     title,

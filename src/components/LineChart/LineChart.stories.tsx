@@ -5,6 +5,7 @@ import LineChart from './LineChart'
 const meta: Meta<typeof LineChart> = {
     title: "Components/LineChart",
     component: LineChart,
+    tags: ['autodocs'],    
   };
 
 
@@ -76,6 +77,8 @@ export const Numeric: Story = {
           ]
         }        
       ],
+      title: "Quadratic Formula Graph",
+      titleAlignment: "center",
       width: 500,
       height: 300,
       marginLeft: 30
