@@ -76,8 +76,8 @@ export const Numeric: Story = {
           ]
         }        
       ],
-      width: 400,
-      height: 400,
+      width: 500,
+      height: 300,
     },
   };
   
@@ -107,14 +107,43 @@ export const Numeric: Story = {
           id:1,
           data:[{"x":"B","y":8},{"x":"E","y":73},{"x":"D","y":36},{"x":"C","y":80}]
         }
-      ]
+      ],
+      width: 500,
+      height: 300,      
     }
+  }
+
+  export const MultiLineCategorical: Story = {
+    args: {
+      data:             
+      [
+        {
+            id: "1",
+            data:[{"x":"A","y":8},{"x":"E","y":73},{"x":"D","y":36},{"x":"C","y":80}]
+        },
+        {
+            id: "2",
+            data:[{"x":"A","y":20},{"x":"E","y":44},{"x":"D","y":23},{"x":"C","y":68}]
+        },
+        {
+            id: "3",
+            data:[{"x":"A","y":4},{"x":"E","y":59},{"x":"D","y":86},{"x":"C","y":78}]
+        },
+        {
+            id: "4",
+            data:[{"x":"A","y":14},{"x":"E","y":23},{"x":"D","y":46},{"x":"C","y":53}]
+        }                                      
+      ],
+      width: 500,
+      height: 300,      
+    },
+    
   }
 
   export const Empty: Story = {
     args: {
       data: [],
-      width: 400,
-      height: 400,
+      width: 500,
+      height: 300,
     },
   };

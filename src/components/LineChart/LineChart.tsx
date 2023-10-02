@@ -29,6 +29,8 @@ export interface LineChartProps {
     x?: string;
     y?: string;
     
+    points?: boolean;
+
     legend?: boolean;
     legendPos?: "top" | "bottom" | "left" | "right";
 
@@ -184,6 +186,7 @@ function LineChart({
     factor = 2,
     x = "x",
     y = "y",
+    points=false,
     marginTop = 20,
     marginBottom = 20,
     marginLeft = 20,
@@ -231,8 +234,10 @@ function LineChart({
 
 
         const svg = d3.select(svgRef.current);
+        const colorScale = d3.scaleOrdinal(d3.schemeCategory10);
         let scaleX = getScaleX(data, width, x, marginLeft, marginRight, scale, factor);
         let scaleY = getScaleY(data, height, y, marginBottom, marginTop,  scale, factor);
+
 
         if (scaleY === undefined || scaleX === undefined) {
             return undefined;
@@ -275,8 +280,8 @@ function LineChart({
                 return line(d["data"])
             })
             .attr("fill", "none")
-            .attr("stroke", "black");            
-
+            .attr("stroke", (d, i) => colorScale(i));            
+        
     }, [data, scale, factor, height, width, x, y, marginTop, marginLeft, marginRight, marginBottom]);
 
 function Title() {
@@ -299,6 +304,7 @@ return (
         <svg ref={svgRef} viewBox={0 + " " + 0 + " " +  width + " " + height} preserveAspectRatio="xMidYMid meet">
             <g className="x-axis"></g>
             <g className="y-axis"></g>
+            <g className="legend"></g>
         </svg>
     </div>
 

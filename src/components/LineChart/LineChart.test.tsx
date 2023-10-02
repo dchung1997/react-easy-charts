@@ -342,10 +342,85 @@ describe("Time Series Line Chart", () => {
         console.error.mockRestore();        
     })    
 
+    test("Malformatted Time Series Chart.", () => {
+        jest.spyOn(console, 'error').mockImplementation(() => {});
+
+        render(<LineChart data={        
+            [
+                {
+                  id: "1",
+                  data: [{
+                    "x": [
+                      {
+                        "a": 1,
+                        "b": 2
+                      },
+                      {
+                        "c": 3,
+                        "d": 4
+                      }
+                    ],
+                    "y": [
+                      1,
+                      2
+                    ]
+                  }]
+                }
+              ]
+        }        
+        />);
+
+        expect(console.error).toHaveBeenCalled();
+        expect(console.error.mock.calls[0][0]).toContain('TypeError: Object type for Line Chart requires Date Objects.'); 
+        console.error.mockRestore();        
+    })    
+
 
 });
 
-// describe("Categorical Line Chart", () => {
+describe("Categorical Line Chart", () => {
+
+    test("Single Categorical Line Chart.", () => {
+        render(<LineChart data={        
+            [
+                {
+                    id: "1",
+                    data:[{"x":"B","y":8},{"x":"E","y":73},{"x":"D","y":36},{"x":"C","y":80}]
+                }
+            ]
+        }        
+        title="Categorical Test"
+        />);
+    })
+    
+
+    test("Multiple Categorical Line Chart.", () => {
+        let { container } = render(<LineChart data={        
+            [
+                {
+                    id: "1",
+                    data:[{"x":"A","y":8},{"x":"E","y":73},{"x":"D","y":36},{"x":"C","y":80}]
+                },
+                {
+                    id: "2",
+                    data:[{"x":"A","y":20},{"x":"E","y":44},{"x":"D","y":23},{"x":"C","y":68}]
+                },
+                {
+                    id: "3",
+                    data:[{"x":"A","y":4},{"x":"E","y":59},{"x":"D","y":86},{"x":"C","y":78}]
+                },
+                {
+                    id: "4",
+                    data:[{"x":"A","y":14},{"x":"E","y":23},{"x":"D","y":46},{"x":"C","y":53}]
+                }                                      
+            ]
+        }        
+        title="Categorical Test"
+        />);
+        let paths = container.querySelectorAll("path");
+        expect(screen.getByRole('heading', {level: 3})).toBeInTheDocument()
+        expect(paths.length).toBe(4);                
+    })     
 
 
-// });
+});
