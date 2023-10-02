@@ -181,11 +181,9 @@ function getScaleY(data:Array<object>, height:number, accessor:string, marginBot
 }
 
 /**
- * A simple line chart, it should be able to create a line from a set of points.
- * The chart must be able to take multiple sets of points and display them accordingly.
- * Similar charts will include scatter plot, and area chart.
- * Requires a consistent set of values that can be manually set.
- * Should be able to accept date time, strings, and numbers.
+ * A simple responsive line chart component, it can take a single or multiple different entries and visualize them onto the chart.
+ * It's capable of determining the types of the elements pass in. Easily customizable to allow for usage without additional bloat from custom css.
+ * Allows for custom accessors but requires for data to still be formatted in correct structure. Can accept dates, strings (categorical values), and numbers. 
  */
 function LineChart({
     data,
@@ -309,9 +307,13 @@ function Title() {
     )
 }
 
-// function Legend() {
-//     <s
-// }
+function Legend() {
+    // We should get the list of ids and then print them according to scale.
+
+    return (
+        <p> Test 123 </p>
+    )
+}
 
 const containerStyle = {
     maxWidth : width
@@ -320,10 +322,10 @@ const containerStyle = {
 return (
     <div className="linechart-container" style={containerStyle}>
         <Title/>
+        {/* <Legend/> */}
         <svg ref={svgRef} viewBox={0 + " " + 0 + " " +  width + " " + height} preserveAspectRatio="xMidYMid meet">
             <g className="x-axis"></g>
             <g className="y-axis"></g>
-            <g className="legend"></g>
         </svg>
     </div>
 
