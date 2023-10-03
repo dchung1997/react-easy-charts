@@ -5,3 +5,33 @@
 .linechart-container h3 {
     margin: 0;
 }
+
+.linechart-container .legend {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0.5em;
+}
+
+.linechart-container .legend .legend-element {
+    display: inherit;
+	cursor: pointer;    
+}
+
+.linechart-container .legend button {
+    background: none;
+	color: inherit;
+	border: none;
+	padding: 0;
+	font: inherit;
+	cursor: pointer;
+    outline: inherit;
+    margin: 0 1em 0 0;
+}
+
+.linechart-container .legend .swatch {
+    width: 15px;
+    height: 15px;
+    margin: 0 0.5em 0 0;
+    background-color: blue;  
+}

@@ -21,7 +21,7 @@ export interface LineChartProps {
             id: string,
             data: [
                 {
-                    accessorX: number | string | object,
+                    accessorX: number | string | Date,
                     accessorY: number
                 }
             ]
@@ -42,7 +42,7 @@ export interface LineChartProps {
     points?: boolean;
 
     legend?: boolean;
-    legendPos?: "top" | "bottom" | "left" | "right";
+    legendPos?: "top" | "bottom";
 
     title?: string;
     titleAlignment?: "left" | "right" | "center";
@@ -187,8 +187,8 @@ function getScaleY(data:Array<object>, height:number, accessor:string, marginBot
  */
 function LineChart({
     data,
-    width = 400,
-    height = 400,
+    width = 500,
+    height = 300,
     title,
     titleAlignment="center",
     scale = "linear",
@@ -196,12 +196,14 @@ function LineChart({
     x = "x",
     y = "y",
     points=false,
-    marginTop = 20,
+    marginTop = 0,
     marginBottom = 20,
     marginLeft = 20,
     marginRight = 20,
 }: LineChartProps) {
     const svgRef = useRef();
+    // we will need to refactor this later for changing it.
+    const colorScale = d3.scaleOrdinal(d3.schemeCategory10);
 
     useEffect(() => {
         if (data === null || data === undefined || data.length === 0) {
@@ -243,7 +245,6 @@ function LineChart({
 
 
         const svg = d3.select(svgRef.current);
-        const colorScale = d3.scaleOrdinal(d3.schemeCategory10);
         let scaleX = getScaleX(data, width, x, marginLeft, marginRight, scale, factor);
         let scaleY = getScaleY(data, height, y, marginBottom, marginTop,  scale, factor);
 
@@ -275,7 +276,7 @@ function LineChart({
 
         svg.select(".y-axis")
             .attr("transform", `translate(${marginLeft},0)`)
-            .call(yAxis.tickSize(-width + marginRight))
+            .call(yAxis.tickSize(-width + marginRight*2))
             .call(g => g.select(".domain")
                 .remove())
             .call(g => g.selectAll(".tick line")
@@ -289,7 +290,21 @@ function LineChart({
                 return line(d["data"])
             })
             .attr("fill", "none")
-            .attr("stroke", (d, i) => colorScale(i));            
+            .attr("stroke", (d, i) => colorScale(i));
+            
+        // if (points) {
+        //     svg.selectAll(".point")
+        //     .data(data, (d) => d["data"])
+        //     .join("circle")
+        //     .attr("class", "point")
+        //     .attr("cx", function(d) {
+        //         console.log(d);
+        //         return scaleX(d[x])
+        //     })
+        //     .attr("cy", (d) => scaleY(d[y]))
+        //     .attr("r", 5)
+        //     .attr("fill", (d, i) => colorScale(i));
+        // }
         
     }, [data, scale, factor, height, width, x, y, marginTop, marginLeft, marginRight, marginBottom]);
 
@@ -309,9 +324,16 @@ function Title() {
 
 function Legend() {
     // We should get the list of ids and then print them according to scale.
-
+    const items = data.map((d,i) => 
+        <div className="legend-element" id={"element-" + i}>
+            <div class="swatch" style={{backgroundColor: colorScale(i)}}></div>
+            <button>{d.id}</button>
+        </div>
+    )
     return (
-        <p> Test 123 </p>
+        <div className="legend">
+            {items}
+        </div>
     )
 }
 
@@ -322,7 +344,7 @@ const containerStyle = {
 return (
     <div className="linechart-container" style={containerStyle}>
         <Title/>
-        {/* <Legend/> */}
+        <Legend/>
         <svg ref={svgRef} viewBox={0 + " " + 0 + " " +  width + " " + height} preserveAspectRatio="xMidYMid meet">
             <g className="x-axis"></g>
             <g className="y-axis"></g>
