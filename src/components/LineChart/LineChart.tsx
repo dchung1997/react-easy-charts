@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, Fragment } from "react";
+import React, { useRef, useEffect, useState, Fragment } from "react";
 import * as d3 from "d3";
 
 import './LineChart.css'
@@ -29,6 +29,9 @@ export interface LineChartProps {
     
     ];
 
+    onDataChange: (data: unknown) => void;
+
+
     /**
      * For finding the x value in data if not setup to be x explicitly.
      */
@@ -37,7 +40,6 @@ export interface LineChartProps {
      * For finding the y value in data if not setup to be y explicitly.
      */    
     y?: string;
-    
     
     points?: boolean;
 
@@ -54,6 +56,7 @@ export interface LineChartProps {
     marginBottom?: number;
     marginLeft?: number;
     marginRight?: number;
+
 
 }
 
@@ -187,6 +190,7 @@ function getScaleY(data:Array<object>, height:number, accessor:string, marginBot
  */
 function LineChart({
     data,
+    onDataChange,
     width = 500,
     height = 300,
     title,
@@ -205,7 +209,27 @@ function LineChart({
 }: LineChartProps) {
     const svgRef = useRef();
     // we will need to refactor this later for changing it.
-    const colorScale = d3.scaleOrdinal(d3.schemeCategory10);
+    const colorScale = d3.schemeTableau10;
+    // we need to create a state variable here containing the ids or names.
+    // when a variable is selected we need to be able set the background color for swatches and set the text to strikethrough.
+    const [legendState, setLegendState] = useState<[{id: string, backgroundColor: string, textDecoration: string}]>([]);
+
+    // we should set the initial state here.
+    useEffect(() => {
+        if (data !== null && data !== undefined && data.length !== 0) {
+            const initialLegendState = data.map(function(d,i) {
+                return {
+                    "id": d.id,
+                    backgroundColor: colorScale[i],
+                    textDecoration: "none"
+                }
+            });
+
+            setLegendState([
+                    ...initialLegendState
+                ]);
+        }
+    }, [data])
 
     useEffect(() => {
         if (data === null || data === undefined || data.length === 0) {
@@ -292,7 +316,7 @@ function LineChart({
                 return line(d["data"])
             })
             .attr("fill", "none")
-            .attr("stroke", (d, i) => colorScale(i));
+            .attr("stroke", (d, i) => colorScale[i]);
             
         // if (points) {
         //     svg.selectAll(".point")
@@ -305,7 +329,7 @@ function LineChart({
         //     })
         //     .attr("cy", (d) => scaleY(d[y]))
         //     .attr("r", 5)
-        //     .attr("fill", (d, i) => colorScale(i));
+        //     .attr("fill", (d, i) => colorScale[i]);
         // }
         
     }, [data, scale, factor, height, width, x, y, marginTop, marginLeft, marginRight, marginBottom]);
@@ -326,15 +350,36 @@ function Title() {
 
 function Legend() {
     // We should get the list of ids and then print them according to scale.
-    if (!legend) {
+    // A legend should be able to manipulate data inside of the chart.
+    // A legend should be able to return data back from component.
+    if (!legend || data === null || data === undefined || data.length === 0) {
         return null;
     }
+
+    // we need a helper function to do something here.
+    // onclick check elements.
+    function handleClick(d) {
+        // A deep copy of the state array.
+        let state = legendState.map((d) => JSON.parse(JSON.stringify(d)));
+        let item = state.find((element) => element.id === d);
+        let index = state.indexOf(item);
+
+        if (item.textDecoration === "none") {
+            item.textDecoration = "line-through";
+            item.backgroundColor = "#808080";
+        } else {
+            item.textDecoration = "none";
+            item.backgroundColor = colorScale[index];            
+        }
+        setLegendState(state);
+        onDataChange(d);
+    }
+
     const items = data.map((d,i) => 
-        // let's add an onclick event here.
-        <div className="legend-element" key={"element-" + i}>
-            <div className="swatch" style={{backgroundColor: colorScale(i)}}></div>
-            <button>{d.id}</button>
-        </div>
+            <div className="legend-element" key={d.id} id={"element-" + i} onClick={() => handleClick(d.id)}>
+                <div className="swatch" style={{backgroundColor: legendState.length > 0 ? legendState[i].backgroundColor : colorScale[i]}}></div>
+                <button onClick={() => handleClick(d.id)} style={{textDecoration: legendState.length > 0 ? legendState[i].textDecoration : null}}>{d.id}</button>
+            </div>
     )
     return (
         <div className="legend">
