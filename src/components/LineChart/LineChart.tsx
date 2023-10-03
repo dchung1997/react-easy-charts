@@ -325,8 +325,8 @@ function Title() {
 function Legend() {
     // We should get the list of ids and then print them according to scale.
     const items = data.map((d,i) => 
-        <div className="legend-element" id={"element-" + i}>
-            <div class="swatch" style={{backgroundColor: colorScale(i)}}></div>
+        <div className="legend-element" key={"element-" + i}>
+            <div className="swatch" style={{backgroundColor: colorScale(i)}}></div>
             <button>{d.id}</button>
         </div>
     )
