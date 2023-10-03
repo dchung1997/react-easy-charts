@@ -196,6 +196,8 @@ function LineChart({
     x = "x",
     y = "y",
     points=false,
+    legend="true",
+    legendPos="top",
     marginTop = 0,
     marginBottom = 20,
     marginLeft = 20,
@@ -324,7 +326,11 @@ function Title() {
 
 function Legend() {
     // We should get the list of ids and then print them according to scale.
+    if (!legend) {
+        return null;
+    }
     const items = data.map((d,i) => 
+        // let's add an onclick event here.
         <div className="legend-element" key={"element-" + i}>
             <div className="swatch" style={{backgroundColor: colorScale(i)}}></div>
             <button>{d.id}</button>
@@ -344,11 +350,12 @@ const containerStyle = {
 return (
     <div className="linechart-container" style={containerStyle}>
         <Title/>
-        <Legend/>
+        {legendPos === "top" ? <Legend/> : null }
         <svg ref={svgRef} viewBox={0 + " " + 0 + " " +  width + " " + height} preserveAspectRatio="xMidYMid meet">
             <g className="x-axis"></g>
             <g className="y-axis"></g>
         </svg>
+        {legendPos === "bottom" ? <Legend/> : null }
     </div>
 
 )};
