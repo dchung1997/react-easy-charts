@@ -29,7 +29,7 @@ export interface LineChartProps {
     
     ];
 
-    onDataChange: (data: unknown) => void;
+    onDataChange?: (data: unknown) => void;
 
 
     /**
@@ -342,9 +342,51 @@ function LineChart({
                 return 1.0;                    
             });            
 
+        svg.on("mouseenter", function(d) {
+            svg.select(".hoverline")
+                .attr("opacity", 1)
+                .attr("stroke", "grey");
+
+        });
+
+        svg.on("mousemove", function(d) {
+            const coords = d3.pointer(d);
+
+            if (coords[0] < marginLeft || coords[0] > width-marginRight) {
+                svg.select(".hoverline")
+                    .attr("opacity", 0)
+                return null;
+            }
+
+            const locX = scaleX.invert(coords[0]);
+            let bisect = d3.bisector(d => d[x]);
+            let indexArr = [];
+
+            for (let  i = 0; i < data.length; i++) {
+                indexArr.push(bisect.center(data[i]["data"], locX));
+            }
+
+            svg.select(".hoverline")
+                .attr("opacity", 1)
+                .attr("stroke", "grey")        
+                .attr("x1", scaleX(data[0]["data"][indexArr[0]][x]))
+                .attr("y1", height-marginBottom)
+                .attr("x2", scaleX(data[0]["data"][indexArr[0]][x]))
+                .attr("y2", marginTop)
+
+            // Now that we have all this data we can write the tooltip!
+
+        });
+
+        svg.on("mouseleave", function(d) {
+            svg.select(".hoverline")
+                .attr("opacity", 0)
+        });
+
         // if (points) {
         //     svg.selectAll(".point")
         //     .data(data, (d) => d["data"])
+        //     .data
         //     .join("circle")
         //     .attr("class", "point")
         //     .attr("cx", function(d) {
@@ -404,7 +446,9 @@ function Legend() {
 
         setLegendState(state);
         setSelected(selectedState);
-        onDataChange(selectedState);
+        if (onDataChange !== undefined) {
+            onDataChange(selectedState);
+        }
     }
 
     const items = data.map((d,i) => 
@@ -431,6 +475,7 @@ return (
         <svg ref={svgRef} viewBox={0 + " " + 0 + " " +  width + " " + height} preserveAspectRatio="xMidYMid meet">
             <g className="x-axis"></g>
             <g className="y-axis"></g>
+            <line className="hoverline"></line>
         </svg>
         {legendPos === "bottom" ? <Legend/> : null }
     </div>
