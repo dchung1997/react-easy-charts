@@ -166,6 +166,8 @@ function getScaleY(data:Array<object>, height:number, accessor:string, marginBot
     const extent = d3.extent(nestedArr, (d) => d[accessor]);
     const max = extent[1];
     const min = extent[0];
+
+    // we should check for min X.
     
     if (scale.toLocaleLowerCase() == "log") {
         if (min < 1) {
@@ -210,9 +212,8 @@ function LineChart({
     const svgRef = useRef();
     // we will need to refactor this later for changing it.
     const colorScale = d3.schemeTableau10;
-    // we need to create a state variable here containing the ids or names.
-    // when a variable is selected we need to be able set the background color for swatches and set the text to strikethrough.
     const [legendState, setLegendState] = useState<[{id: string, backgroundColor: string, textDecoration: string}]>([]);
+    const [selected, setSelected] = useState<[{id: string, isSelected: boolean}]>([]);
 
     // we should set the initial state here.
     useEffect(() => {
@@ -225,11 +226,23 @@ function LineChart({
                 }
             });
 
+            const initialSelected = data.map(function(d,i) {
+                return {
+                    "id": d.id,
+                    "isSelected": true
+                }
+            });            
+
             setLegendState([
                     ...initialLegendState
                 ]);
+
+            setSelected([
+                ...initialSelected
+            ]);
         }
-    }, [data])
+    }, [data]);
+
 
     useEffect(() => {
         if (data === null || data === undefined || data.length === 0) {
@@ -316,8 +329,19 @@ function LineChart({
                 return line(d["data"])
             })
             .attr("fill", "none")
-            .attr("stroke", (d, i) => colorScale[i]);
-            
+            .attr("stroke", function(d, i) {
+                if (selected.length > 0 && !selected[i].isSelected) {
+                    return "#0f0f0f";
+                }
+                return colorScale[i];                    
+            })
+            .attr("opacity", function(d, i) {
+                if (selected.length > 0 && !selected[i].isSelected) {
+                    return 0.25;
+                }
+                return 1.0;                    
+            });            
+
         // if (points) {
         //     svg.selectAll(".point")
         //     .data(data, (d) => d["data"])
@@ -332,7 +356,7 @@ function LineChart({
         //     .attr("fill", (d, i) => colorScale[i]);
         // }
         
-    }, [data, scale, factor, height, width, x, y, marginTop, marginLeft, marginRight, marginBottom]);
+    }, [data, scale, factor, height, width, x, y, marginTop, marginLeft, marginRight, marginBottom, selected]);
 
 function Title() {
     if (title === undefined || title === null || title === "") {
@@ -361,18 +385,26 @@ function Legend() {
     function handleClick(d) {
         // A deep copy of the state array.
         let state = legendState.map((d) => JSON.parse(JSON.stringify(d)));
+        let selectedState = selected.map((d) => JSON.parse(JSON.stringify(d)));
+
         let item = state.find((element) => element.id === d);
         let index = state.indexOf(item);
+
+        let selectedItem = selectedState.find((element) => element.id === d);
 
         if (item.textDecoration === "none") {
             item.textDecoration = "line-through";
             item.backgroundColor = "#808080";
+            selectedItem.isSelected = false;
         } else {
             item.textDecoration = "none";
-            item.backgroundColor = colorScale[index];            
+            item.backgroundColor = colorScale[index];
+            selectedItem.isSelected = true;                        
         }
+
         setLegendState(state);
-        onDataChange(d);
+        setSelected(selectedState);
+        onDataChange(selectedState);
     }
 
     const items = data.map((d,i) => 
