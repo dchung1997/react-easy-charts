@@ -185,6 +185,48 @@ function getScaleY(data:Array<object>, height:number, accessor:string, marginBot
     return scaleY;
 }
 
+function mouseOver() {
+    const svg = d3.select(this);
+    svg.select(".hoverline")
+        .attr("opacity", 1)
+        .attr("stroke", "grey");
+}
+
+function mouseMove(data, x, scaleX, marginLeft, marginRight, marginBottom, marginTop, width, height, d, e) {
+    const svg = d3.select(e);
+    const coords = d3.pointer(d);
+
+    if (coords[0] < marginLeft || coords[0] > width-marginRight) {
+        svg.select(".hoverline")
+            .attr("opacity", 0);
+        return null;
+    }
+
+    const locX = scaleX.invert(coords[0]);
+    let bisect = d3.bisector(d => d[x]);
+    let indexArr = [];
+
+    for (let  i = 0; i < data.length; i++) {
+        indexArr.push(bisect.center(data[i]["data"], locX));
+    }
+
+    svg.select(".hoverline")
+        .attr("opacity", 1)
+        .attr("stroke", "grey")        
+        .attr("x1", scaleX(data[0]["data"][indexArr[0]][x]))
+        .attr("y1", height-marginBottom)
+        .attr("x2", scaleX(data[0]["data"][indexArr[0]][x]))
+        .attr("y2", marginTop)
+
+    // Now that we have all this data we can write the tooltip!
+}
+
+function mouseOut() {
+    const svg = d3.select(this);
+    svg.select(".hoverline")
+        .attr("opacity", 0)
+}
+
 /**
  * A simple responsive line chart component, it can take a single or multiple different entries and visualize them onto the chart.
  * It's capable of determining the types of the elements passed in. Easily customizable to allow for usage without additional bloat from custom css.
@@ -342,46 +384,13 @@ function LineChart({
                 return 1.0;                    
             });            
 
-        svg.on("mouseenter", function(d) {
-            svg.select(".hoverline")
-                .attr("opacity", 1)
-                .attr("stroke", "grey");
+        const tooltip = svg.select("#tooltip")
 
+        svg.on("mouseenter", mouseOver);
+        svg.on("mousemove", function(event) {
+           return mouseMove(data, x, scaleX, marginLeft, marginRight, marginBottom, marginTop, width, height, event, this)
         });
-
-        svg.on("mousemove", function(d) {
-            const coords = d3.pointer(d);
-
-            if (coords[0] < marginLeft || coords[0] > width-marginRight) {
-                svg.select(".hoverline")
-                    .attr("opacity", 0)
-                return null;
-            }
-
-            const locX = scaleX.invert(coords[0]);
-            let bisect = d3.bisector(d => d[x]);
-            let indexArr = [];
-
-            for (let  i = 0; i < data.length; i++) {
-                indexArr.push(bisect.center(data[i]["data"], locX));
-            }
-
-            svg.select(".hoverline")
-                .attr("opacity", 1)
-                .attr("stroke", "grey")        
-                .attr("x1", scaleX(data[0]["data"][indexArr[0]][x]))
-                .attr("y1", height-marginBottom)
-                .attr("x2", scaleX(data[0]["data"][indexArr[0]][x]))
-                .attr("y2", marginTop)
-
-            // Now that we have all this data we can write the tooltip!
-
-        });
-
-        svg.on("mouseleave", function(d) {
-            svg.select(".hoverline")
-                .attr("opacity", 0)
-        });
+        svg.on("mouseleave", mouseOut);
 
         // if (points) {
         //     svg.selectAll(".point")
@@ -452,7 +461,7 @@ function Legend() {
     }
 
     const items = data.map((d,i) => 
-            <div className="legend-element" key={d.id} id={"element-" + i} onClick={() => handleClick(d.id)}>
+            <div className="legend-element" key={d.id} onClick={() => handleClick(d.id)}>
                 <div className="swatch" style={{backgroundColor: legendState.length > 0 ? legendState[i].backgroundColor : colorScale[i]}}></div>
                 <button onClick={() => handleClick(d.id)} style={{textDecoration: legendState.length > 0 ? legendState[i].textDecoration : null}}>{d.id}</button>
             </div>
@@ -473,11 +482,12 @@ return (
         <Title/>
         {legendPos === "top" ? <Legend/> : null }
         <svg ref={svgRef} viewBox={0 + " " + 0 + " " +  width + " " + height} preserveAspectRatio="xMidYMid meet">
-            <g className="x-axis"></g>
-            <g className="y-axis"></g>
-            <line className="hoverline"></line>
+            <g className="x-axis"></g> // we need a id here
+            <g className="y-axis"></g> // id here
+            <line className="hoverline"></line> // id here
         </svg>
         {legendPos === "bottom" ? <Legend/> : null }
+        <div id="tooltip" className="tooltip"></div> // id here.
     </div>
 
 )};
