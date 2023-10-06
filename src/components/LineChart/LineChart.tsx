@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState, Fragment } from "react";
+import React, { useRef, useEffect, useState, useId } from "react";
 import * as d3 from "d3";
 
 import './LineChart.css'
@@ -42,6 +42,9 @@ export interface LineChartProps {
     y?: string;
     
     points?: boolean;
+    xAxisFormat?: string;
+    yAxisFormat?: string;
+    toolTipFormat?: string;
 
     legend?: boolean;
     legendPos?: "top" | "bottom";
@@ -185,14 +188,18 @@ function getScaleY(data:Array<object>, height:number, accessor:string, marginBot
     return scaleY;
 }
 
-function mouseOver() {
-    const svg = d3.select(this);
+function mouseOver(toolId, e) {
+    const svg = d3.select(e);
+
     svg.select(".hoverline")
         .attr("opacity", 1)
         .attr("stroke", "grey");
+        
+    const toolTip = d3.select(document.getElementById("tooltip-" + toolId));
+        toolTip.style("visibility", "visible")        
 }
 
-function mouseMove(data, x, scaleX, marginLeft, marginRight, marginBottom, marginTop, width, height, d, e) {
+function mouseMove(data, selectedData, x, y, scaleX, format, marginLeft, marginRight, marginBottom, marginTop, width, height, toolId, d, e) {
     const svg = d3.select(e);
     const coords = d3.pointer(d);
 
@@ -207,24 +214,45 @@ function mouseMove(data, x, scaleX, marginLeft, marginRight, marginBottom, margi
     let indexArr = [];
 
     for (let  i = 0; i < data.length; i++) {
-        indexArr.push(bisect.center(data[i]["data"], locX));
+        indexArr.push({
+            id: data[i].id,
+            value: bisect.center(data[i]["data"], locX)
+        });
     }
 
     svg.select(".hoverline")
         .attr("opacity", 1)
         .attr("stroke", "grey")        
-        .attr("x1", scaleX(data[0]["data"][indexArr[0]][x]))
+        .attr("x1", scaleX(data[0]["data"][indexArr[0].value][x]))
         .attr("y1", height-marginBottom)
-        .attr("x2", scaleX(data[0]["data"][indexArr[0]][x]))
+        .attr("x2", scaleX(data[0]["data"][indexArr[0].value][x]))
         .attr("y2", marginTop)
 
-    // Now that we have all this data we can write the tooltip!
+    const toolTip = d3.select(document.getElementById("tooltip-" + toolId));
+        toolTip.style("visibility", "visible")
+            .style("top", (coords[1]) + "px")
+            .style("left", (coords[0] + 25) + "px");
+
+    for (let i = 0; i < selectedData.length; i++) {
+        if (selectedData[i].isSelected) {
+            const element = toolTip.select(".tooltip-element-" + i);
+            const index = indexArr.find((d) => d.id === selectedData[i].id).value;
+            const arr = data.find((d) => d.id === selectedData[i].id)
+            const value = element.select(".value")
+            const formatted = d3.format(format)(arr["data"][index][y])
+            value.html(formatted);
+        }
+    }
 }
 
-function mouseOut() {
-    const svg = d3.select(this);
+function mouseOut(toolId,e) {
+    const svg = d3.select(e);
+
     svg.select(".hoverline")
         .attr("opacity", 0)
+
+    const toolTip = d3.select(document.getElementById("tooltip-" + toolId));
+        toolTip.style("visibility", "hidden")        
 }
 
 /**
@@ -241,6 +269,9 @@ function LineChart({
     titleAlignment="center",
     scale = "linear",
     factor = 2,
+    toolTipFormat = "0.2f",
+    xAxisFormat,
+    yAxisFormat,
     x = "x",
     y = "y",
     points=false,
@@ -256,6 +287,7 @@ function LineChart({
     const colorScale = d3.schemeTableau10;
     const [legendState, setLegendState] = useState<[{id: string, backgroundColor: string, textDecoration: string}]>([]);
     const [selected, setSelected] = useState<[{id: string, isSelected: boolean}]>([]);
+    const toolId = useId();
 
     // we should set the initial state here.
     useEffect(() => {
@@ -344,8 +376,8 @@ function LineChart({
 
         line.y((d) => scaleY(d[y]));
 
-        const xAxis = d3.axisBottom(scaleX);
-        const yAxis = d3.axisLeft(scaleY);
+        const xAxis = xAxisFormat? d3.axisBottom(scaleX).tickFormat(d3.format(xAxisFormat)) : d3.axisBottom(scaleX);
+        const yAxis = yAxisFormat? d3.axisLeft(scaleY).tickFormat(d3.format(yAxisFormat)) : d3.axisLeft(scaleY);
         
         svg.select(".x-axis")
             .attr("transform", `translate(0,${height-marginBottom})`) // we need to fix this.
@@ -386,11 +418,15 @@ function LineChart({
 
         const tooltip = svg.select("#tooltip")
 
-        svg.on("mouseenter", mouseOver);
-        svg.on("mousemove", function(event) {
-           return mouseMove(data, x, scaleX, marginLeft, marginRight, marginBottom, marginTop, width, height, event, this)
+        svg.on("mouseenter", function() {
+            return mouseOver(toolId, this)
         });
-        svg.on("mouseleave", mouseOut);
+        svg.on("mousemove", function(event) {
+           return mouseMove(data, selected, x, y, scaleX, toolTipFormat, marginLeft, marginRight, marginBottom, marginTop, width, height, toolId, event, this)
+        });
+        svg.on("mouseleave", function() {
+            return mouseOut(toolId, this);
+        });
 
         // if (points) {
         //     svg.selectAll(".point")
@@ -473,6 +509,36 @@ function Legend() {
     )
 }
 
+function Tooltip() {
+    if (data === null || data === undefined || data.length === 0) {
+        return null;
+    }
+
+    const items = selected.map(function(d,i) {
+        if (d.isSelected) {
+            return (<div className={"tooltip-element-" + i} key={d.id}>
+                <div className="swatch" style={{backgroundColor: legendState.length > 0 ? legendState[i].backgroundColor : colorScale[i]}}></div>
+                <div className="name">{d.id + ": " }</div>
+                <div className="value"></div> 
+            </div>)
+        } else {
+            return null;
+        }
+
+    });
+
+    const filteredItems = items.filter((element) => element !== null);
+    if (filteredItems.length === 0) {
+        return null;
+    }
+
+    return (
+        <div id={"tooltip-" + toolId} className="tooltip">
+            {items}
+        </div> 
+    )
+}
+
 const containerStyle = {
     maxWidth : width
 } 
@@ -487,7 +553,7 @@ return (
             <line className="hoverline"></line> // id here
         </svg>
         {legendPos === "bottom" ? <Legend/> : null }
-        <div id="tooltip" className="tooltip"></div> // id here.
+        <Tooltip/>
     </div>
 
 )};

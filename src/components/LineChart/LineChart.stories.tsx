@@ -82,6 +82,7 @@ export const Numeric: Story = {
       width: 500,
       height: 300,
       marginLeft: 30,
+      toolTipFormat: "0.0f",
       points:true
     },
   };
@@ -100,7 +101,8 @@ export const Numeric: Story = {
       x: "date",
       y: "close",
       scale: "linear",
-      factor: 2
+      factor: 2,
+      toolTipFormat: "$0.2f"
     }
 
   }
@@ -127,7 +129,8 @@ export const Numeric: Story = {
     x:"Date",
     y:"Close",     
     width: 700,
-    heigh: 400
+    height: 400,
+    toolTipFormat: "$0.2f"
     }
   }  
 
@@ -140,7 +143,7 @@ export const Numeric: Story = {
         }
       ],
       width: 500,
-      height: 300,      
+      height: 300, 
     }
   }
 

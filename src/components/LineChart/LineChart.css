@@ -6,6 +6,27 @@
     margin: 0;
 }
 
+.linechart-container .tooltip {
+    visibility: hidden;
+    position: absolute;
+    background-color: white;
+    border: 1px solid;
+    padding: 15px;
+    margin: 0.5em;
+}
+
+.linechart-container .tooltip .name {
+    display: inline-block; 
+}
+
+.linechart-container .tooltip .swatch {
+    display: inline-block;
+}
+
+.linechart-container .tooltip .value {
+    display: inline-block;
+}
+
 .linechart-container .legend {
     display: flex;
     flex-wrap: wrap;
@@ -30,9 +51,8 @@
     outline: inherit;
 }
 
-.linechart-container .legend .swatch {
+.linechart-container .swatch {
     width: 15px;
     height: 15px;
     margin: 0 0.5em 0 0;
-    background-color: blue;  
 }
