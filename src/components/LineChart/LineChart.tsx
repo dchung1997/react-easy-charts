@@ -209,24 +209,53 @@ function mouseMove(data, selectedData, x, y, scaleX, format, marginLeft, marginR
         return null;
     }
 
-    const locX = scaleX.invert(coords[0]);
-    let bisect = d3.bisector(d => d[x]);
+    const val = data[0]["data"][0][x]
+    const elementType = typeof val;
     let indexArr = [];
 
-    for (let  i = 0; i < data.length; i++) {
-        indexArr.push({
-            id: data[i].id,
-            value: bisect.center(data[i]["data"], locX)
-        });
+    if (elementType === "string") {
+        const domain = scaleX.domain()
+        const range = scaleX.range()
+        const invertScaleX = d3.scaleQuantize().domain(range).range(domain);  
+        const index = invertScaleX(coords[0]);
+        for (let  i = 0; i < data.length; i++) {
+            indexArr.push({
+                id: data[i].id,
+                value: data[i]["data"].findIndex((d) => d[x] === index)
+            });
+        }
+
+        svg.select(".hoverline")
+            .attr("opacity", 1)
+            .attr("stroke", "grey")        
+            .attr("x1", scaleX(data[0]["data"][indexArr[0].value][x]) + scaleX.bandwidth() / 2)
+            .attr("y1", height-marginBottom)
+            .attr("x2", scaleX(data[0]["data"][indexArr[0].value][x]) + scaleX.bandwidth() / 2)
+            .attr("y2", marginTop)        
+
+    } else {
+        const locX = scaleX.invert(coords[0]);
+        let bisect = d3.bisector(d => d[x]);
+    
+        for (let  i = 0; i < data.length; i++) {
+            indexArr.push({
+                id: data[i].id,
+                value: bisect.center(data[i]["data"], locX)
+            });
+        }
+
+        svg.select(".hoverline")
+            .attr("opacity", 1)
+            .attr("stroke", "grey")        
+            .attr("x1", scaleX(data[0]["data"][indexArr[0].value][x]))
+            .attr("y1", height-marginBottom)
+            .attr("x2", scaleX(data[0]["data"][indexArr[0].value][x]))
+            .attr("y2", marginTop)
+        
     }
 
-    svg.select(".hoverline")
-        .attr("opacity", 1)
-        .attr("stroke", "grey")        
-        .attr("x1", scaleX(data[0]["data"][indexArr[0].value][x]))
-        .attr("y1", height-marginBottom)
-        .attr("x2", scaleX(data[0]["data"][indexArr[0].value][x]))
-        .attr("y2", marginTop)
+    console.log(indexArr);
+
 
     const toolTip = d3.select(document.getElementById("tooltip-" + toolId));
         toolTip.style("visibility", "visible")
@@ -361,7 +390,6 @@ function LineChart({
         let scaleX = getScaleX(data, width, x, marginLeft, marginRight, scale, factor);
         let scaleY = getScaleY(data, height, y, marginBottom, marginTop,  scale, factor);
 
-
         if (scaleY === undefined || scaleX === undefined) {
             return undefined;
         }
@@ -415,8 +443,6 @@ function LineChart({
                 }
                 return 1.0;                    
             });            
-
-        const tooltip = svg.select("#tooltip")
 
         svg.on("mouseenter", function() {
             return mouseOver(toolId, this)
@@ -548,9 +574,9 @@ return (
         <Title/>
         {legendPos === "top" ? <Legend/> : null }
         <svg ref={svgRef} viewBox={0 + " " + 0 + " " +  width + " " + height} preserveAspectRatio="xMidYMid meet">
-            <g className="x-axis"></g> // we need a id here
-            <g className="y-axis"></g> // id here
-            <line className="hoverline"></line> // id here
+            <g className="x-axis"></g> 
+            <g className="y-axis"></g> 
+            <line className="hoverline"></line>
         </svg>
         {legendPos === "bottom" ? <Legend/> : null }
         <Tooltip/>
