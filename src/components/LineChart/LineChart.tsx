@@ -41,7 +41,6 @@ export interface LineChartProps {
      */    
     y?: string;
     
-    points?: boolean;
     xAxisFormat?: string;
     yAxisFormat?: string;
     toolTipFormat?: string;
@@ -254,9 +253,6 @@ function mouseMove(data, selectedData, x, y, scaleX, format, marginLeft, marginR
         
     }
 
-    console.log(indexArr);
-
-
     const toolTip = d3.select(document.getElementById("tooltip-" + toolId));
         toolTip.style("visibility", "visible")
             .style("top", (coords[1]) + "px")
@@ -303,7 +299,6 @@ function LineChart({
     yAxisFormat,
     x = "x",
     y = "y",
-    points=false,
     legend="true",
     legendPos="top",
     marginTop = 0,
@@ -453,21 +448,6 @@ function LineChart({
         svg.on("mouseleave", function() {
             return mouseOut(toolId, this);
         });
-
-        // if (points) {
-        //     svg.selectAll(".point")
-        //     .data(data, (d) => d["data"])
-        //     .data
-        //     .join("circle")
-        //     .attr("class", "point")
-        //     .attr("cx", function(d) {
-        //         console.log(d);
-        //         return scaleX(d[x])
-        //     })
-        //     .attr("cy", (d) => scaleY(d[y]))
-        //     .attr("r", 5)
-        //     .attr("fill", (d, i) => colorScale[i]);
-        // }
         
     }, [data, scale, factor, height, width, x, y, marginTop, marginLeft, marginRight, marginBottom, selected]);
 
