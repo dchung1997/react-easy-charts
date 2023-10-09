@@ -195,7 +195,8 @@ function mouseOver(toolId, e) {
         .attr("stroke", "grey");
         
     const toolTip = d3.select(document.getElementById("tooltip-" + toolId));
-        toolTip.style("visibility", "visible")        
+        toolTip.style("visibility", "visible");
+        toolTip.style("display", "block");        
 }
 
 function mouseMove(data, selectedData, x, y, scaleX, format, marginLeft, marginRight, marginBottom, marginTop, width, height, toolId, d, e) {
@@ -207,8 +208,9 @@ function mouseMove(data, selectedData, x, y, scaleX, format, marginLeft, marginR
             .attr("opacity", 0);
 
         const toolTip = d3.select(document.getElementById("tooltip-" + toolId));
-        toolTip.style("visibility", "hidden")       
-            
+        toolTip.style("visibility", "hidden");       
+        toolTip.style("display", "none");        
+          
         return null;
     }
 
@@ -259,6 +261,7 @@ function mouseMove(data, selectedData, x, y, scaleX, format, marginLeft, marginR
 
     const toolTip = d3.select(document.getElementById("tooltip-" + toolId));
         toolTip.style("visibility", "visible")
+            .style("display", "block")
             .style("top", (coords[1]) + "px")
             .style("left", (coords[0] + 25) + "px");
 
@@ -281,8 +284,9 @@ function mouseOut(toolId,e) {
         .attr("opacity", 0)
 
     const toolTip = d3.select(document.getElementById("tooltip-" + toolId));
-        toolTip.style("visibility", "hidden")        
-}
+        toolTip.style("visibility", "hidden");
+        toolTip.style("display", "none");
+    }
 
 /**
  * A simple responsive line chart component, it can take a single or multiple different entries and visualize them onto the chart.
@@ -543,7 +547,7 @@ function Tooltip() {
     }
 
     return (
-        <div id={"tooltip-" + toolId} className="tooltip">
+        <div id={"tooltip-" + toolId} className="tooltip" data-testid="linechart-tooltip">
             {items}
         </div> 
     )
@@ -554,10 +558,10 @@ const containerStyle = {
 } 
 
 return (
-    <div className="linechart-container" style={containerStyle}>
+    <div className="linechart-container" style={containerStyle} data-testid="linechart">
         <Title/>
         {legendPos === "top" ? <Legend/> : null }
-        <svg ref={svgRef} viewBox={0 + " " + 0 + " " +  width + " " + height} preserveAspectRatio="xMidYMid meet">
+        <svg ref={svgRef} viewBox={0 + " " + 0 + " " +  width + " " + height} preserveAspectRatio="xMidYMid meet" data-testid="linechart-svg">
             <g className="x-axis"></g> 
             <g className="y-axis"></g> 
             <line className="hoverline"></line>
