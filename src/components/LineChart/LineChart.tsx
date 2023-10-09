@@ -205,6 +205,10 @@ function mouseMove(data, selectedData, x, y, scaleX, format, marginLeft, marginR
     if (coords[0] < marginLeft || coords[0] > width-marginRight) {
         svg.select(".hoverline")
             .attr("opacity", 0);
+
+        const toolTip = d3.select(document.getElementById("tooltip-" + toolId));
+        toolTip.style("visibility", "hidden")       
+            
         return null;
     }
 
