@@ -254,9 +254,10 @@ function mouseMove(data, selectedData, x, y, scaleX, format, marginLeft, marginR
     }
 
     const toolTip = d3.select(document.getElementById("tooltip-" + toolId));
-        toolTip.style("visibility", "visible")
-            .style("top", (coords[1]) + "px")
-            .style("left", (coords[0] + 25) + "px");
+
+    toolTip.style("visibility", "visible")
+            .style("top", d.clientY + "px")
+            .style("left", d.clientX + "px");
 
     for (let i = 0; i < selectedData.length; i++) {
         if (selectedData[i].isSelected) {
