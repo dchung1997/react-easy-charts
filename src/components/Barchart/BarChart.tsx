@@ -176,7 +176,7 @@ function BarChart({
             .attr("x", function(d, i, s) {
                 if (alignment === "horizontal") {
                     if (barType === "stacked") {
-                        const val = scaleX(d.x) - scaleX(0);
+                        const val = scaleX(d.x) - scaleX(scaleX.domain()[0]);
                         if (i > 0) {
                             const newVal = prev;
                             prev = val + prev;
@@ -199,7 +199,7 @@ function BarChart({
             .attr("y", function(d, i, s) {
                 if (alignment === "vertical") {
                     if (barType === "stacked") {
-                        const val = scaleY(d.y) - scaleY(0);
+                        const val = scaleY(d.y) - scaleY(scaleY.domain()[0]);;
                         if (i > 0) {
                             const newVal = prev;
                             prev = val + prev;
@@ -219,8 +219,7 @@ function BarChart({
             })
             .attr("width", function(d, i, s) {
                 if (alignment === "horizontal") {
-                    // todo replace this with a concrete value;
-                    return scaleX(d.x) - scaleX(0);
+                    return scaleX(d.x) - scaleX(scaleX.domain()[0]);;
                 } else if (barType === "grouped") {
                     const size = s.length;
                     return scaleX.bandwidth() / size;
@@ -229,7 +228,7 @@ function BarChart({
             })
             .attr("height", function(d, i, s) {
                 if (alignment === "vertical") {
-                    return scaleY(d.y) - scaleY(0);
+                    return scaleY(d.y) - scaleY(scaleY.domain()[0]);;
                 } else if (barType === "grouped") {
                     const size = s.length;
                     return scaleY.bandwidth() / size;
