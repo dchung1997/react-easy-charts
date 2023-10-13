@@ -117,6 +117,7 @@ function BarChart({
     marginRight = 20,    
 }: BarChartProps) {
     const svgRef = useRef();
+    // Probably will need a custom colorscale creator for this.
     const colorScale = d3.schemeTableau10;
 
 
@@ -173,7 +174,7 @@ function BarChart({
             .data(element => element)
             .join("rect")
             .attr("class", "bar")
-            .attr("x", function(d, i) {
+            .attr("x", function(d, i, s) {
                 if (alignment === "horizontal") {
                     if (barType === "stacked") {
                         const val = scaleX(d.x);
@@ -188,14 +189,15 @@ function BarChart({
                     }
                     return marginLeft;
                 } else if (alignment === "vertical") {
+                    const size = s.length;
                     if (barType === "grouped") {
-
+                        return scaleX(d.x) + ((scaleX.bandwidth() / size) * i);
                     }
                     return scaleX(d.x);
                 }
 
             })
-            .attr("y", function(d, i) {
+            .attr("y", function(d, i, s) {
                 if (alignment === "vertical") {
                     if (barType === "stacked") {
                         // part of sum. we need to know prev value.
@@ -211,20 +213,27 @@ function BarChart({
                     return marginBottom; 
                 } else if (alignment === "horizontal") {
                     if (barType === "grouped") {
-
+                        const size = s.length;
+                        return scaleY(d.y) + ((scaleY.bandwidth() / size) * i);
                     }
                     return scaleY(d.y);
                 }                                
             })
-            .attr("width", function(d) {
+            .attr("width", function(d, i, s) {
                 if (alignment === "horizontal") {
                     return scaleX(d.x);
+                } else if (barType === "grouped") {
+                    const size = s.length;
+                    return scaleX.bandwidth() / size;
                 }
                 return scaleX.bandwidth();
             })
-            .attr("height", function(d) {
+            .attr("height", function(d, i, s) {
                 if (alignment === "vertical") {
                     return scaleY(d.y);
+                } else if (barType === "grouped") {
+                    const size = s.length;
+                    return scaleY.bandwidth() / size;
                 } 
                 return scaleY.bandwidth();
             })
