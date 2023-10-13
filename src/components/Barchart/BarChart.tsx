@@ -59,9 +59,8 @@ function getScale(data: Array<object>, accessor: string, type: string, alignment
         case "stacked":
             categories.forEach(function(d) {
                 sum.push(d3.sum(d, d => d[accessor]));
-            })
+            });
             max = d3.max(sum);
-
             return accessor === "x" ? d3.scaleLinear().domain([0, max]).range([marginLeft, width-marginRight]) : d3.scaleLinear().domain([0, max]).range([height-marginBottom, marginTop]);
 
         case "grouped":
@@ -177,7 +176,7 @@ function BarChart({
             .attr("x", function(d, i, s) {
                 if (alignment === "horizontal") {
                     if (barType === "stacked") {
-                        const val = scaleX(d.x);
+                        const val = scaleX(d.x) - scaleX(0);
                         if (i > 0) {
                             const newVal = prev;
                             prev = val + prev;
@@ -200,15 +199,14 @@ function BarChart({
             .attr("y", function(d, i, s) {
                 if (alignment === "vertical") {
                     if (barType === "stacked") {
-                        // part of sum. we need to know prev value.
-                        const val = scaleX(d.x);
+                        const val = scaleY(d.y) - scaleY(0);
                         if (i > 0) {
                             const newVal = prev;
                             prev = val + prev;
                             return newVal;
                         }
                         prev = val + marginBottom;
-                        return marginBottom;                       
+                        return marginBottom;                
                     }
                     return marginBottom; 
                 } else if (alignment === "horizontal") {
@@ -221,7 +219,8 @@ function BarChart({
             })
             .attr("width", function(d, i, s) {
                 if (alignment === "horizontal") {
-                    return scaleX(d.x);
+                    // todo replace this with a concrete value;
+                    return scaleX(d.x) - scaleX(0);
                 } else if (barType === "grouped") {
                     const size = s.length;
                     return scaleX.bandwidth() / size;
@@ -230,7 +229,7 @@ function BarChart({
             })
             .attr("height", function(d, i, s) {
                 if (alignment === "vertical") {
-                    return scaleY(d.y);
+                    return scaleY(d.y) - scaleY(0);
                 } else if (barType === "grouped") {
                     const size = s.length;
                     return scaleY.bandwidth() / size;
