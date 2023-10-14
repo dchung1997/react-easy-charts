@@ -42,6 +42,7 @@ function getScale(data: Array<object>, accessor: string, type: string, alignment
             } catch (e) {
                 console.error(e.stack); 
             }    
+            return null;
         }
 
         const categories = Array.from(new Set(data.map(function(e) {
@@ -87,6 +88,7 @@ function getScale(data: Array<object>, accessor: string, type: string, alignment
             } catch (e) {
                 console.error(e.stack); 
             }    
+            return null;
     }
     
     
@@ -135,6 +137,10 @@ function BarChart({
         const scaleX = getScale(data, "x", type, alignment, width, height, marginLeft, marginRight, marginBottom, marginTop);
         const scaleY = getScale(data, "y", type, alignment, width, height, marginBottom, marginTop, marginBottom, marginTop);
 
+        if (scaleX === null || scaleY === null) {
+            return undefined;
+        }
+
         const xAxis = xAxisFormat? d3.axisBottom(scaleX).tickFormat(d3.format(xAxisFormat)) : d3.axisBottom(scaleX);
         const yAxis = yAxisFormat? d3.axisLeft(scaleY).tickFormat(d3.format(yAxisFormat)) : d3.axisLeft(scaleY);
         
@@ -160,7 +166,7 @@ function BarChart({
         let categories: Array<object> = []
         groups.forEach(function(d: object[]){
             categories.push(d[1]);
-        })
+        });
 
         const barType = type.toLowerCase();
         let prev = 0;
@@ -199,16 +205,16 @@ function BarChart({
             .attr("y", function(d, i, s) {
                 if (alignment === "vertical") {
                     if (barType === "stacked") {
-                        const val = scaleY(d.y) - scaleY(scaleY.domain()[0]);;
+                        const val = scaleY(scaleY.domain()[0]) - scaleY(d.y);
+                        const val2 = scaleY(d.y);
                         if (i > 0) {
-                            const newVal = prev;
-                            prev = val + prev;
-                            return newVal;
+                            prev = prev - val;
+                            return prev;
                         }
-                        prev = val + marginBottom;
-                        return marginBottom;                
+                        prev = val2;
+                        return prev;                
                     }
-                    return marginBottom; 
+                    return scaleY(d.y); 
                 } else if (alignment === "horizontal") {
                     if (barType === "grouped") {
                         const size = s.length;
@@ -228,7 +234,7 @@ function BarChart({
             })
             .attr("height", function(d, i, s) {
                 if (alignment === "vertical") {
-                    return scaleY(d.y) - scaleY(scaleY.domain()[0]);;
+                    return scaleY(scaleY.domain()[0]) - scaleY(d.y);
                 } else if (barType === "grouped") {
                     const size = s.length;
                     return scaleY.bandwidth() / size;
