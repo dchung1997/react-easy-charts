@@ -117,20 +117,23 @@ function BarChart({
     marginLeft = 20,
     marginRight = 20,    
 }: BarChartProps) {
+    if (data === null || data === undefined || data.length === 0) {
+        try {
+            throw new Error("Data must not be empty, undefined, or null for Line Chart.");
+        } catch (e) {
+            console.error(e.stack); 
+        }
+        return undefined;
+    }
+
     const svgRef = useRef();
     // Probably will need a custom colorscale creator for this.
-    const colorScale = d3.schemeTableau10;
+    const group = data[0].id ? d3.group(data, d => d.id) : alignment === "horizontal" ? d3.group(data, d => d.y) : d3.group(data, d => d.x);
+    const keys = Array.from( group.keys() );
+    const colorScale = d3.scaleOrdinal().domain(keys).range(d3.schemeTableau10);
 
 
     useEffect(() => {
-        if (data === null || data === undefined || data.length === 0) {
-            try {
-                throw new Error("Data must not be empty, undefined, or null for Line Chart.");
-            } catch (e) {
-                console.error(e.stack); // Stack of the error
-            }
-            return undefined;
-        }
 
         const svg = d3.select(svgRef.current);
         
@@ -161,8 +164,8 @@ function BarChart({
                 .attr("stroke-opacity", 0.1));
 
         // we should probably sort data first. todo
-
         const groups = alignment === "horizontal" ? d3.groups(data, d => d.y) : d3.groups(data, d => d.x);
+
         let categories: Array<object> = []
         groups.forEach(function(d: object[]){
             categories.push(d[1]);
@@ -242,7 +245,7 @@ function BarChart({
                 return scaleY.bandwidth();
             })
             .attr("fill", function(d, i) {
-                return colorScale[i];
+                return d.id ? colorScale(d.id) : alignment === "horizontal" ? colorScale(d.y) : colorScale(d.x);
             } );
 
 
