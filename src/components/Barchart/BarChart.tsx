@@ -56,7 +56,7 @@ function getScale(data: Array<object>, accessor: string, type: string, alignment
     let sum: number[] = [];
     let max: number | undefined;
 
-    switch(type.toLowerCase()) {
+    switch(type) {
         case "stacked":
             categories.forEach(function(d) {
                 sum.push(d3.sum(d, d => d[accessor]));
@@ -128,7 +128,8 @@ function BarChart({
 
     const svgRef = useRef();
     // Probably will need a custom colorscale creator for this.
-    const group = data[0].id ? d3.group(data, d => d.id) : alignment === "horizontal" ? d3.group(data, d => d.y) : d3.group(data, d => d.x);
+    const barType = type.toLowerCase();
+    const group = barType === "grouped" || barType === "stacked" ? d3.group(data, d => d.id) : alignment === "horizontal" ? d3.group(data, d => d.y) : d3.group(data, d => d.x);
     const keys = Array.from( group.keys() );
     const colorScale = d3.scaleOrdinal().domain(keys).range(d3.schemeTableau10);
 
@@ -137,8 +138,8 @@ function BarChart({
 
         const svg = d3.select(svgRef.current);
         
-        const scaleX = getScale(data, "x", type, alignment, width, height, marginLeft, marginRight, marginBottom, marginTop);
-        const scaleY = getScale(data, "y", type, alignment, width, height, marginBottom, marginTop, marginBottom, marginTop);
+        const scaleX = getScale(data, "x", barType, alignment, width, height, marginLeft, marginRight, marginBottom, marginTop);
+        const scaleY = getScale(data, "y", barType, alignment, width, height, marginBottom, marginTop, marginBottom, marginTop);
 
         if (scaleX === null || scaleY === null) {
             return undefined;
@@ -171,7 +172,6 @@ function BarChart({
             categories.push(d[1]);
         });
 
-        const barType = type.toLowerCase();
         let prev = 0;
 
         svg.selectAll(".section")
@@ -249,7 +249,7 @@ function BarChart({
             } );
 
 
-    }, [data, type, alignment, height, width, marginTop, marginLeft, marginRight, marginBottom]);
+    }, [data, barType, alignment, height, width, marginTop, marginLeft, marginRight, marginBottom]);
 
 
     const containerStyle = {
