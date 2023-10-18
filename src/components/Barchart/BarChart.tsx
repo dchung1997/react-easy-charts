@@ -1,5 +1,7 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import * as d3 from "d3";
+
+import './BarChart.css';
 
 export interface BarChartProps {
     /** 
@@ -19,6 +21,9 @@ export interface BarChartProps {
     xAxisFormat?: string;
     yAxisFormat?: string;
 
+    legend?: boolean;
+    legendPos?: "top" | "bottom";
+    
     title?: string;
     titleAlignment?: "left" | "right" | "center";
     alignment : "vertical" | "horizontal";
@@ -34,7 +39,7 @@ export interface BarChartProps {
 }
 
 
-function getScale(data: Array<object>, accessor: string, type: string, alignment: string, width: number, height: number, marginLeft:number, marginRight:number, marginBottom: number, marginTop: number) {
+function getScale(data: Array<object>, selected: Array<object>, accessor: string, type: string, alignment: string, width: number, height: number, marginLeft:number, marginRight:number, marginBottom: number, marginTop: number) {
     if ((alignment === "vertical" && accessor === "x") || (alignment === "horizontal" && accessor === "y")) {
         if (typeof data[0][accessor] !== "string") {
             try {
@@ -46,8 +51,15 @@ function getScale(data: Array<object>, accessor: string, type: string, alignment
         }
 
         const categories = Array.from(new Set(data.map(function(e) {
-            return e[accessor];
-        })));
+            if (type === "stacked" || type === "grouped" ) {
+                return e[accessor];
+            } else {
+                const index = selected.findIndex((d) => d.id === e[accessor]);
+                if (selected.length > 0 && selected[index].isSelected) {   
+                    return e[accessor];            
+                }    
+            }
+        }).filter((e) => e !== undefined)));
 
         return accessor === "x" ? d3.scaleBand().domain(categories).range([marginLeft, width-marginRight]).paddingInner(0.25) : d3.scaleBand().domain(categories).range([height-marginBottom, marginTop]).paddingInner(0.25);
     }
@@ -59,15 +71,24 @@ function getScale(data: Array<object>, accessor: string, type: string, alignment
     switch(type) {
         case "stacked":
             categories.forEach(function(d) {
-                sum.push(d3.sum(d, d => d[accessor]));
+                let arr = d;
+                arr = arr.filter(function(d) {
+                    const index = selected.findIndex((e) => e.id === d.id);
+                    return selected.length > 0 && selected[index].isSelected;
+                });
+                sum.push(d3.sum(arr, d => d[accessor]));
             });
             max = d3.max(sum);
+
             return accessor === "x" ? d3.scaleLinear().domain([0, max]).range([marginLeft, width-marginRight]) : d3.scaleLinear().domain([0, max]).range([height-marginBottom, marginTop]);
 
         case "grouped":
             categories.forEach(function(d) {
                 d.forEach(function(e) {
-                    sum.push(e[accessor]);
+                    const index = selected.findIndex((f) => f.id === e.id);
+                    if (selected.length > 0 && selected[index].isSelected) {
+                        sum.push(e[accessor]);
+                    }
                 });
             });
             max = d3.max(sum);
@@ -76,7 +97,10 @@ function getScale(data: Array<object>, accessor: string, type: string, alignment
 
         case "normal":
             data.forEach(function(d){
-                sum.push(d[accessor]);
+                const index = selected.findIndex((e) => d.id ? e.id === d.id : alignment === "horizontal" ? e.id === d.y : e.id === d.x);
+                if (selected.length > 0 && selected[index].isSelected) {
+                    sum.push(d[accessor]);
+                }
             });
             max = d3.max(sum);
             
@@ -108,6 +132,8 @@ function BarChart({
     height = 300,
     title,
     titleAlignment="center",
+    legend="true",
+    legendPos="top",    
     type= "normal",
     alignment="vertical",  
     xAxisFormat,
@@ -127,6 +153,8 @@ function BarChart({
     }
 
     const svgRef = useRef();
+    const [legendState, setLegendState] = useState<[{id: string, backgroundColor: string, textDecoration: string}]>([]);
+    const [selected, setSelected] = useState<[{id: string, isSelected: boolean}]>([]);    
     // Probably will need a custom colorscale creator for this.
     const barType = type.toLowerCase();
     const group = barType === "grouped" || barType === "stacked" ? d3.group(data, d => d.id) : alignment === "horizontal" ? d3.group(data, d => d.y) : d3.group(data, d => d.x);
@@ -134,12 +162,42 @@ function BarChart({
     const colorScale = d3.scaleOrdinal().domain(keys).range(d3.schemeTableau10);
 
 
+    // State Initialization.
+    useEffect(() => {
+        if (data !== null && data !== undefined && data.length !== 0) {
+            const initialLegendState = keys.map(function(d) {
+                return {
+                    "id": d,
+                    backgroundColor: colorScale(d),
+                    textDecoration: "none"
+                }
+            });
+
+            const initialSelected = keys.map(function(d) {
+                return {
+                    "id": d,
+                    "isSelected": true
+                }
+            });            
+
+            setLegendState([
+                    ...initialLegendState
+                ]);
+
+            setSelected([
+                ...initialSelected
+            ]);
+        }
+    }, [data]);
+
+
+    // Bar Chart Drawing.
     useEffect(() => {
 
         const svg = d3.select(svgRef.current);
         
-        const scaleX = getScale(data, "x", barType, alignment, width, height, marginLeft, marginRight, marginBottom, marginTop);
-        const scaleY = getScale(data, "y", barType, alignment, width, height, marginBottom, marginTop, marginBottom, marginTop);
+        const scaleX = getScale(data, selected, "x", barType, alignment, width, height, marginLeft, marginRight, marginBottom, marginTop);
+        const scaleY = getScale(data, selected, "y", barType, alignment, width, height, marginBottom, marginTop, marginBottom, marginTop);
 
         if (scaleX === null || scaleY === null) {
             return undefined;
@@ -169,7 +227,20 @@ function BarChart({
 
         let categories: Array<object> = []
         groups.forEach(function(d: object[]){
-            categories.push(d[1]);
+            // we're going to need to modify this before sending out.
+            let arr = d[1];
+            if (barType === "stacked" || barType === "grouped") {
+                arr = arr.filter(function(d) {
+                    const index = selected.findIndex((e) => e.id === d.id);
+                    return selected.length > 0 && selected[index].isSelected;
+                });
+                categories.push(arr);
+            } else {
+                const index = selected.findIndex((e) => e.id === d[0]);
+                if (selected.length > 0 && selected[index].isSelected) {
+                    categories.push(d[1]);
+                }                
+            }
         });
 
         let prev = 0;
@@ -244,19 +315,65 @@ function BarChart({
                 } 
                 return scaleY.bandwidth();
             })
-            .attr("fill", function(d, i) {
+            .attr("fill", function(d) {
                 return d.id ? colorScale(d.id) : alignment === "horizontal" ? colorScale(d.y) : colorScale(d.x);
-            } );
-
-
-    }, [data, barType, alignment, height, width, marginTop, marginLeft, marginRight, marginBottom]);
+            })
+        
+    }, [data, selected, barType, alignment, height, width, marginTop, marginLeft, marginRight, marginBottom]);
 
 
     const containerStyle = {
         maxWidth : width
     }     
 
-
+    function Legend() {
+        // We should get the list of ids and then print them according to scale.
+        // A legend should be able to manipulate data inside of the chart.
+        // A legend should be able to return data back from component.
+        if (!legend || data === null || data === undefined || data.length === 0) {
+            return null;
+        }
+    
+        // we need a helper function to do something here.
+        // onclick check elements.
+        function handleClick(d) {
+            // A deep copy of the state array.
+            let state = legendState.map((d) => JSON.parse(JSON.stringify(d)));
+            let selectedState = selected.map((d) => JSON.parse(JSON.stringify(d)));
+    
+            let item = state.find((element) => element.id === d);
+        
+            let selectedItem = selectedState.find((element) => element.id === d);
+    
+            if (item.textDecoration === "none") {
+                item.textDecoration = "line-through";
+                item.backgroundColor = "#808080";
+                selectedItem.isSelected = false;
+            } else {
+                item.textDecoration = "none";
+                item.backgroundColor = colorScale(item.id ? item.id : alignment === "horizontal" ? item.y : item.x);
+                selectedItem.isSelected = true;                        
+            }
+    
+            setLegendState(state);
+            setSelected(selectedState);
+            if (onDataChange !== undefined) {
+                onDataChange(selectedState);
+            }
+        }
+        
+        const items = keys.map((d,i) => 
+                <div className="legend-element" key={d} onClick={() => handleClick(d)}>
+                    <div className="swatch" style={{backgroundColor: legendState.length > 0 ? legendState[i].backgroundColor : null}}></div>
+                    <button onClick={() => handleClick(d)} style={{textDecoration: legendState.length > 0 ? legendState[i].textDecoration : null}}>{d}</button>
+                </div>
+        )
+        return (
+            <div className="legend">
+                {items}
+            </div>
+        )
+    }
 
 
     function Title() {
@@ -278,7 +395,8 @@ function BarChart({
 return (
     <div className="barchart-container" style={containerStyle} data-testid="barchart">
         <Title/>
-        <svg ref={svgRef} viewBox={0 + " " + 0 + " " +  width + " " + height} preserveAspectRatio="xMidYMid meet" data-testid="linechart-svg">
+        <Legend/>
+        <svg ref={svgRef} viewBox={0 + " " + 0 + " " +  width + " " + height} preserveAspectRatio="xMidYMid meet" data-testid="barchart-svg">
             <g className="x-axis"></g> 
             <g className="y-axis"></g> 
         </svg>
