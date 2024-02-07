@@ -259,7 +259,7 @@ export const StackedVertical: Story = {
       }                           
     ],
     alignment: "vertical",
-    type: "Stacked",
+    type: "stacked",
     title: "Stacked Vertical Bar Chart",
     width: 500,
     height: 300,

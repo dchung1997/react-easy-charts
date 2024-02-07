@@ -35,3 +35,26 @@
     height: 15px;
     margin: 0 0.5em 0 0;
 }
+
+
+.barchart-container .tooltip {
+    visibility: hidden;
+    position: absolute;
+    background-color: white;
+    border: 1px solid;
+    padding: 15px;
+    margin: 0.5em;
+    display: none;
+}
+
+.barchart-container .tooltip .name {
+    display: inline-block; 
+}
+
+.barchart-container .tooltip .swatch {
+    display: inline-block;
+}
+
+.barchart-container .tooltip .value {
+    display: inline-block;
+}

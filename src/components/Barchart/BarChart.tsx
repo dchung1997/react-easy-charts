@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect, useId } from "react";
 import * as d3 from "d3";
 
 import './BarChart.css';
@@ -20,6 +20,7 @@ export interface BarChartProps {
 
     xAxisFormat?: string;
     yAxisFormat?: string;
+    toolTipFormat?: string;
 
     legend?: boolean;
     legendPos?: "top" | "bottom";
@@ -118,6 +119,64 @@ function getScale(data: Array<object>, selected: Array<object>, accessor: string
     
 }
 
+function mouseOver(toolId) {
+    const toolTip = d3.select(document.getElementById("tooltip-" + toolId));
+        toolTip.style("visibility", "visible");
+        toolTip.style("display", "block");        
+}
+
+function mouseMove(data, selectedData, alignment, barType, format, toolId, d, item) {
+    const coords = d3.pointer(d);
+
+    const toolTip = d3.select(document.getElementById("tooltip-" + toolId));
+        toolTip.style("visibility", "visible")
+            .style("display", "block")
+            .style("top", (coords[1]) + "px")
+            .style("left", (coords[0] + 25) + "px");
+
+
+    if (barType === "normal")  {
+        for (let i = 0; i < selectedData.length; i++) {
+            if (selectedData[i].isSelected) {
+                const element = toolTip.select(".tooltip-element-" + i);
+                const arr = data.find((d) => d.id ? d.id === selectedData[i].id : alignment === "horizontal" ? d.y === selectedData[i].id : d.x === selectedData[i].id)
+                const value = element.select(".value")
+                const index = alignment === "horizontal" ? "x" : "y";
+                const formatted = d3.format(format)(arr[index])
+                value.html(formatted);
+            }
+        }
+    } else {
+        // Get array from item.
+        let itemArr = [];
+        const accessor = alignment === "horizontal" ? "y": "x";
+        const category = item[accessor];
+
+        for (let index = 0; index < data.length; index++) {
+            if (data[index][accessor] === category) {
+                itemArr.push(data[index]);
+            }
+        }
+
+        for(let i = 0; i < selectedData.length; i++) {
+            if (selectedData[i].isSelected) {
+                const element = toolTip.select(".tooltip-element-" + i);
+                const arr = itemArr.find((d) => d.id === selectedData[i].id)
+                const value = element.select(".value")
+                const index = alignment === "horizontal" ? "x" : "y";
+                const formatted = d3.format(format)(arr[index])
+                value.html(formatted);
+            }
+        }
+    }
+}
+
+function mouseOut(toolId) {
+    const toolTip = d3.select(document.getElementById("tooltip-" + toolId));
+        toolTip.style("visibility", "hidden");
+        toolTip.style("display", "none");
+}
+
 
 /**
  * A responsive bar chart component. It should be able to display data vertically and horizontally.
@@ -138,6 +197,7 @@ function BarChart({
     alignment="vertical",  
     xAxisFormat,
     yAxisFormat,
+    toolTipFormat = "0.2f",
     marginTop = 20,
     marginBottom = 20,
     marginLeft = 20,
@@ -145,7 +205,7 @@ function BarChart({
 }: BarChartProps) {
     if (data === null || data === undefined || data.length === 0) {
         try {
-            throw new Error("Data must not be empty, undefined, or null for Line Chart.");
+            throw new Error("Data must not be empty, undefined, or null for Bar Chart.");
         } catch (e) {
             console.error(e.stack); 
         }
@@ -155,6 +215,7 @@ function BarChart({
     const svgRef = useRef();
     const [legendState, setLegendState] = useState<[{id: string, backgroundColor: string, textDecoration: string}]>([]);
     const [selected, setSelected] = useState<[{id: string, isSelected: boolean}]>([]);    
+    const toolId = useId();
     // Probably will need a custom colorscale creator for this.
     const barType = type.toLowerCase();
     const group = barType === "grouped" || barType === "stacked" ? d3.group(data, d => d.id) : alignment === "horizontal" ? d3.group(data, d => d.y) : d3.group(data, d => d.x);
@@ -244,15 +305,22 @@ function BarChart({
         });
 
         let prev = 0;
+        let test = 0;
 
         svg.selectAll(".section")
             .data(categories)
-            .join("g")
+            .join("g")         
             .attr("class", "section")
             .selectAll(".bar")
             .data(element => element)
             .join("rect")
-            .attr("class", "bar")
+            .attr("class", "bar")    
+            .attr("data-testid", function() {
+                if (test === 0) {
+                    test = test + 1;
+                    return "test-rect";
+                }
+            })
             .attr("x", function(d, i, s) {
                 if (alignment === "horizontal") {
                     if (barType === "stacked") {
@@ -280,12 +348,11 @@ function BarChart({
                 if (alignment === "vertical") {
                     if (barType === "stacked") {
                         const val = scaleY(scaleY.domain()[0]) - scaleY(d.y);
-                        const val2 = scaleY(d.y);
                         if (i > 0) {
                             prev = prev - val;
                             return prev;
                         }
-                        prev = val2;
+                        prev = scaleY(d.y);
                         return prev;                
                     }
                     return scaleY(d.y); 
@@ -318,6 +385,15 @@ function BarChart({
             .attr("fill", function(d) {
                 return d.id ? colorScale(d.id) : alignment === "horizontal" ? colorScale(d.y) : colorScale(d.x);
             })
+            .on("mouseenter", function() {
+                return mouseOver(toolId)
+            })
+            .on("mousemove", function(event, item) {
+                return mouseMove(data, selected, alignment, barType, toolTipFormat, toolId, event, item)
+            })
+            .on("mouseleave", function() {
+                return mouseOut(toolId);
+            });           
         
     }, [data, selected, barType, alignment, height, width, marginTop, marginLeft, marginRight, marginBottom]);
 
@@ -390,6 +466,36 @@ function BarChart({
         )
     }
 
+    function Tooltip() {
+        if (data === null || data === undefined || data.length === 0) {
+            return null;
+        }
+    
+        const items = selected.map(function(d,i) {
+            if (d.isSelected) {
+                return (<div className={"tooltip-element-" + i} key={d.id}>
+                    <div className="swatch" style={{backgroundColor: legendState.length > 0 ? legendState[i].backgroundColor : colorScale[i]}}></div>
+                    <div className="name">{d.id + ": " }</div>
+                    <div className="value"></div> 
+                </div>)
+            } else {
+                return null;
+            }
+    
+        });
+    
+        const filteredItems = items.filter((element) => element !== null);
+        if (filteredItems.length === 0) {
+            return null;
+        }
+    
+        return (
+            <div id={"tooltip-" + toolId} className="tooltip" data-testid="linechart-tooltip">
+                {items}
+            </div> 
+        )
+    }
+
 
 
 return (
@@ -400,8 +506,8 @@ return (
             <g className="x-axis"></g> 
             <g className="y-axis"></g> 
         </svg>
+        <Tooltip/>
     </div>
-
 )};
 
 export default BarChart;
