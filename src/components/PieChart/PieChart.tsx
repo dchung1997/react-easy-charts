@@ -56,13 +56,13 @@ function PieChart({
     marginRight = 20,
 }: PieChartProps) {
     const svgRef = useRef();
-    const colorScale = d3.scaleOrdinal()
-    .domain(data.map(d => d.name))
-    .range(d3.quantize(t => d3.interpolateSpectral(t * 0.8 + 0.1), data.length).reverse());    const [legendState, setLegendState] = useState<[{id: string, backgroundColor: string, textDecoration: string}]>([]);
+    const [legendState, setLegendState] = useState<[{id: string, backgroundColor: string, textDecoration: string}]>([]);
     const [selected, setSelected] = useState<[{id: string, isSelected: boolean}]>([]);
 
     useEffect(() => {
         if (data !== null && data !== undefined && data.length !== 0) {
+            const colorScale = d3.scaleOrdinal().domain(data.map(d => d.name)).range(d3.quantize(t => d3.interpolateSpectral(t * 0.8 + 0.1), data.length).reverse());
+
             const initialLegendState = data.map(function(d) {
                 return {
                     "id": d.name,
@@ -91,7 +91,7 @@ function PieChart({
     useEffect(() => {
         if (data === null || data === undefined || data.length === 0) {
             try {
-                throw new Error("Data must not be empty, undefined, or null for Line Chart.");
+                throw new Error("Data must not be empty, undefined, or null for Pie Chart.");
             } catch (e) {
                 console.error(e.stack); // Stack of the error
             }
@@ -118,6 +118,7 @@ function PieChart({
                 throw new TypeError("Name for Data must be defined.");
             } catch (e) {
                 console.error(e.stack); 
+                return undefined;                  
             }    
         }
 
@@ -126,6 +127,7 @@ function PieChart({
                 throw new TypeError("Value for Data must be defined.");
             } catch (e) {
                 console.error(e.stack); 
+                return undefined;                  
             }      
         }
 
@@ -135,6 +137,7 @@ function PieChart({
                 throw new TypeError("Name for Data in Pie Chart must be a string.");
             } catch (e) {
                 console.error(e.stack); 
+                return undefined;                  
             }    
         }
 
@@ -143,6 +146,7 @@ function PieChart({
                 throw new TypeError("Value for Data in Pie Chart must be a number.");
             } catch (e) {
                 console.error(e.stack); 
+                return undefined;                  
             }      
         }
 
@@ -157,6 +161,8 @@ function PieChart({
             .padAngle(1 / radius)
             .sort(null)
             .value(d => d.value);
+        
+        const colorScale = d3.scaleOrdinal().domain(data.map(d => d.name)).range(d3.quantize(t => d3.interpolateSpectral(t * 0.8 + 0.1), data.length).reverse());
 
         svg.attr("width", width)
             .attr("height", height)
@@ -263,9 +269,13 @@ function Legend() {
     // We should get the list of ids and then print them according to scale.
     // A legend should be able to manipulate data inside of the chart.
     // A legend should be able to return data back from component.
-    if (!legend || data === null || data === undefined || data.length === 0) {
+    if (!legend || data === null || data === undefined || data.length === 0 || 
+        data[0].name === undefined || data[0].value == null || 
+        data[0].value == undefined || data[0].value == null) {
         return null;
     }
+
+    const colorScale = d3.scaleOrdinal().domain(data.map(d => d.name)).range(d3.quantize(t => d3.interpolateSpectral(t * 0.8 + 0.1), data.length).reverse());
 
     // we need a helper function to do something here.
     // onclick check elements.

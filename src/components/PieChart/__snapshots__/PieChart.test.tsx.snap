@@ -1,0 +1,3249 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Interactivity Pie Chart PieChart legend data selection. 1`] = `
+{
+  "asFragment": [Function],
+  "baseElement": <body>
+    <div>
+      <div
+        class="piechart-container"
+        data-testid="piechart"
+        style="max-width: 500px;"
+      >
+        <h3
+          style="text-align: center;"
+        >
+           
+          U.S. Census Data
+           
+        </h3>
+        <div
+          class="legend"
+        >
+          <div
+            class="legend-element"
+          >
+            <div
+              class="swatch"
+              style="background-color: rgb(128, 128, 128);"
+            />
+            <button
+              style="text-decoration: line-through;"
+            >
+              &lt;5
+            </button>
+          </div>
+          <div
+            class="legend-element"
+          >
+            <div
+              class="swatch"
+              style="background-color: rgb(77, 163, 177);"
+            />
+            <button
+              style="text-decoration: none;"
+            >
+              5-9
+            </button>
+          </div>
+          <div
+            class="legend-element"
+          >
+            <div
+              class="swatch"
+              style="background-color: rgb(101, 186, 170);"
+            />
+            <button
+              style="text-decoration: none;"
+            >
+              10-14
+            </button>
+          </div>
+          <div
+            class="legend-element"
+          >
+            <div
+              class="swatch"
+              style="background-color: rgb(131, 204, 165);"
+            />
+            <button
+              style="text-decoration: none;"
+            >
+              15-19
+            </button>
+          </div>
+          <div
+            class="legend-element"
+          >
+            <div
+              class="swatch"
+              style="background-color: rgb(162, 217, 163);"
+            />
+            <button
+              style="text-decoration: none;"
+            >
+              20-24
+            </button>
+          </div>
+          <div
+            class="legend-element"
+          >
+            <div
+              class="swatch"
+              style="background-color: rgb(191, 229, 160);"
+            />
+            <button
+              style="text-decoration: none;"
+            >
+              25-29
+            </button>
+          </div>
+          <div
+            class="legend-element"
+          >
+            <div
+              class="swatch"
+              style="background-color: rgb(216, 239, 159);"
+            />
+            <button
+              style="text-decoration: none;"
+            >
+              30-34
+            </button>
+          </div>
+          <div
+            class="legend-element"
+          >
+            <div
+              class="swatch"
+              style="background-color: rgb(235, 247, 166);"
+            />
+            <button
+              style="text-decoration: none;"
+            >
+              35-39
+            </button>
+          </div>
+          <div
+            class="legend-element"
+          >
+            <div
+              class="swatch"
+              style="background-color: rgb(247, 250, 175);"
+            />
+            <button
+              style="text-decoration: none;"
+            >
+              40-44
+            </button>
+          </div>
+          <div
+            class="legend-element"
+          >
+            <div
+              class="swatch"
+              style="background-color: rgb(253, 245, 172);"
+            />
+            <button
+              style="text-decoration: none;"
+            >
+              45-49
+            </button>
+          </div>
+          <div
+            class="legend-element"
+          >
+            <div
+              class="swatch"
+              style="background-color: rgb(254, 232, 154);"
+            />
+            <button
+              style="text-decoration: none;"
+            >
+              50-54
+            </button>
+          </div>
+          <div
+            class="legend-element"
+          >
+            <div
+              class="swatch"
+              style="background-color: rgb(254, 213, 133);"
+            />
+            <button
+              style="text-decoration: none;"
+            >
+              55-59
+            </button>
+          </div>
+          <div
+            class="legend-element"
+          >
+            <div
+              class="swatch"
+              style="background-color: rgb(253, 191, 112);"
+            />
+            <button
+              style="text-decoration: none;"
+            >
+              60-64
+            </button>
+          </div>
+          <div
+            class="legend-element"
+          >
+            <div
+              class="swatch"
+              style="background-color: rgb(251, 165, 95);"
+            />
+            <button
+              style="text-decoration: none;"
+            >
+              65-69
+            </button>
+          </div>
+          <div
+            class="legend-element"
+          >
+            <div
+              class="swatch"
+              style="background-color: rgb(247, 136, 81);"
+            />
+            <button
+              style="text-decoration: none;"
+            >
+              70-74
+            </button>
+          </div>
+          <div
+            class="legend-element"
+          >
+            <div
+              class="swatch"
+              style="background-color: rgb(239, 109, 74);"
+            />
+            <button
+              style="text-decoration: none;"
+            >
+              75-79
+            </button>
+          </div>
+          <div
+            class="legend-element"
+          >
+            <div
+              class="swatch"
+              style="background-color: rgb(227, 84, 73);"
+            />
+            <button
+              style="text-decoration: none;"
+            >
+              80-84
+            </button>
+          </div>
+          <div
+            class="legend-element"
+          >
+            <div
+              class="swatch"
+              style="background-color: rgb(209, 60, 75);"
+            />
+            <button
+              style="text-decoration: none;"
+            >
+              ≥85
+            </button>
+          </div>
+        </div>
+        <svg
+          data-testid="piechart-svg"
+          height="400"
+          preserveAspectRatio="xMidYMid meet"
+          viewBox="-250 -200 500 400"
+          width="500"
+        >
+          <path
+            d="M0.497,-198.999A199,199,0,0,1,83.126,-180.807L0,0Z"
+            fill="rgb(77, 163, 177)"
+          >
+            <title>
+              &lt;5: 19,912,018
+            </title>
+          </path>
+          <path
+            d="M84.029,-180.389A199,199,0,0,1,151.856,-128.611L0,0Z"
+            fill="rgb(101, 186, 170)"
+          >
+            <title>
+              5-9: 20,501,982
+            </title>
+          </path>
+          <path
+            d="M152.497,-127.851A199,199,0,0,1,192.741,-49.515L0,0Z"
+            fill="rgb(131, 204, 165)"
+          >
+            <title>
+              10-14: 20,679,786
+            </title>
+          </path>
+          <path
+            d="M192.987,-48.551A199,199,0,0,1,193.944,44.574L0,0Z"
+            fill="rgb(162, 217, 163)"
+          >
+            <title>
+              15-19: 21,354,481
+            </title>
+          </path>
+          <path
+            d="M193.718,45.543A199,199,0,0,1,154.193,125.799L0,0Z"
+            fill="rgb(191, 229, 160)"
+          >
+            <title>
+              20-24: 22,604,232
+            </title>
+          </path>
+          <path
+            d="M153.562,126.569A199,199,0,0,1,84.543,180.149L0,0Z"
+            fill="rgb(216, 239, 159)"
+          >
+            <title>
+              25-29: 21,698,010
+            </title>
+          </path>
+          <path
+            d="M83.641,180.569A199,199,0,0,1,3.751,198.965L0,0Z"
+            fill="rgb(235, 247, 166)"
+          >
+            <title>
+              30-34: 21,183,639
+            </title>
+          </path>
+          <path
+            d="M2.756,198.981A199,199,0,0,1,-81.277,181.645L0,0Z"
+            fill="rgb(247, 250, 175)"
+          >
+            <title>
+              35-39: 19,855,782
+            </title>
+          </path>
+          <path
+            d="M-82.184,181.237A199,199,0,0,1,-152.398,127.969L0,0Z"
+            fill="rgb(253, 245, 172)"
+          >
+            <title>
+              40-44: 20,796,128
+            </title>
+          </path>
+          <path
+            d="M-153.036,127.205A199,199,0,0,1,-194.083,43.964L0,0Z"
+            fill="rgb(254, 232, 154)"
+          >
+            <title>
+              45-49: 21,370,368
+            </title>
+          </path>
+          <path
+            d="M-194.3,42.993A199,199,0,0,1,-194.155,-43.645L0,0Z"
+            fill="rgb(254, 213, 133)"
+          >
+            <title>
+              50-54: 22,525,490
+            </title>
+          </path>
+          <path
+            d="M-193.934,-44.615A199,199,0,0,1,-163.001,-114.156L0,0Z"
+            fill="rgb(253, 191, 112)"
+          >
+            <title>
+              55-59: 21,001,947
+            </title>
+          </path>
+          <path
+            d="M-162.428,-114.97A199,199,0,0,1,-120.565,-158.32L0,0Z"
+            fill="rgb(251, 165, 95)"
+          >
+            <title>
+              60-64: 18,415,681
+            </title>
+          </path>
+          <path
+            d="M-119.772,-158.92A199,199,0,0,1,-81.977,-181.331L0,0Z"
+            fill="rgb(247, 136, 81)"
+          >
+            <title>
+              65-69: 14,547,446
+            </title>
+          </path>
+          <path
+            d="M-81.069,-181.738A199,199,0,0,1,-50.783,-192.411L0,0Z"
+            fill="rgb(239, 109, 74)"
+          >
+            <title>
+              70-74: 10,587,721
+            </title>
+          </path>
+          <path
+            d="M-49.821,-192.663A199,199,0,0,1,-26.114,-197.279L0,0Z"
+            fill="rgb(227, 84, 73)"
+          >
+            <title>
+              75-79: 7,730,129
+            </title>
+          </path>
+          <path
+            d="M-25.127,-197.407A199,199,0,0,1,-0.497,-198.999L0,0Z"
+            fill="rgb(209, 60, 75)"
+          >
+            <title>
+              80-84: 5,811,429
+            </title>
+          </path>
+          <g
+            font-family="sans-serif"
+            font-size="12"
+            text-anchor="middle"
+          >
+            <text
+              transform="translate(21.394990511979774,-97.17254952399003)"
+            >
+              <tspan
+                class="name"
+                font-weight="bold"
+                y="-0.4em"
+              >
+                5-9
+              </tspan>
+              <tspan
+                class="value"
+                fill-opacity="0.7"
+                x="0"
+                y="0.7em"
+              >
+                20,501,982
+              </tspan>
+            </text>
+          </g>
+          <g
+            font-family="sans-serif"
+            font-size="12"
+            text-anchor="middle"
+          >
+            <text
+              transform="translate(60.37515307113261,-79.08913257608346)"
+            >
+              <tspan
+                class="name"
+                font-weight="bold"
+                y="-0.4em"
+              >
+                10-14
+              </tspan>
+              <tspan
+                class="value"
+                fill-opacity="0.7"
+                x="0"
+                y="0.7em"
+              >
+                20,679,786
+              </tspan>
+            </text>
+          </g>
+          <g
+            font-family="sans-serif"
+            font-size="12"
+            text-anchor="middle"
+          >
+            <text
+              transform="translate(88.50345846749421,-45.46853680615341)"
+            >
+              <tspan
+                class="name"
+                font-weight="bold"
+                y="-0.4em"
+              >
+                15-19
+              </tspan>
+              <tspan
+                class="value"
+                fill-opacity="0.7"
+                x="0"
+                y="0.7em"
+              >
+                21,354,481
+              </tspan>
+            </text>
+          </g>
+          <g
+            font-family="sans-serif"
+            font-size="12"
+            text-anchor="middle"
+          >
+            <text
+              transform="translate(99.49474459013622,-1.0226431164186407)"
+            >
+              <tspan
+                class="name"
+                font-weight="bold"
+                y="-0.4em"
+              >
+                20-24
+              </tspan>
+              <tspan
+                class="value"
+                fill-opacity="0.7"
+                x="0"
+                y="0.7em"
+              >
+                22,604,232
+              </tspan>
+            </text>
+          </g>
+          <g
+            font-family="sans-serif"
+            font-size="12"
+            text-anchor="middle"
+          >
+            <text
+              transform="translate(89.26212959385272,43.96046201270231)"
+            >
+              <tspan
+                class="name"
+                font-weight="bold"
+                y="-0.4em"
+              >
+                25-29
+              </tspan>
+              <tspan
+                class="value"
+                fill-opacity="0.7"
+                x="0"
+                y="0.7em"
+              >
+                21,698,010
+              </tspan>
+            </text>
+          </g>
+          <g
+            font-family="sans-serif"
+            font-size="12"
+            text-anchor="middle"
+          >
+            <text
+              transform="translate(61.01477962261577,78.59673445890505)"
+            >
+              <tspan
+                class="name"
+                font-weight="bold"
+                y="-0.4em"
+              >
+                30-34
+              </tspan>
+              <tspan
+                class="value"
+                fill-opacity="0.7"
+                x="0"
+                y="0.7em"
+              >
+                21,183,639
+              </tspan>
+            </text>
+          </g>
+          <g
+            font-family="sans-serif"
+            font-size="12"
+            text-anchor="middle"
+          >
+            <text
+              transform="translate(22.32684228565225,96.96268412926496)"
+            >
+              <tspan
+                class="name"
+                font-weight="bold"
+                y="-0.4em"
+              >
+                35-39
+              </tspan>
+              <tspan
+                class="value"
+                fill-opacity="0.7"
+                x="0"
+                y="0.7em"
+              >
+                19,855,782
+              </tspan>
+            </text>
+          </g>
+          <g
+            font-family="sans-serif"
+            font-size="12"
+            text-anchor="middle"
+          >
+            <text
+              transform="translate(-20.1028431439811,97.44806666901346)"
+            >
+              <tspan
+                class="name"
+                font-weight="bold"
+                y="-0.4em"
+              >
+                40-44
+              </tspan>
+              <tspan
+                class="value"
+                fill-opacity="0.7"
+                x="0"
+                y="0.7em"
+              >
+                20,796,128
+              </tspan>
+            </text>
+          </g>
+          <g
+            font-family="sans-serif"
+            font-size="12"
+            text-anchor="middle"
+          >
+            <text
+              transform="translate(-60.13845601476531,79.26926332545382)"
+            >
+              <tspan
+                class="name"
+                font-weight="bold"
+                y="-0.4em"
+              >
+                45-49
+              </tspan>
+              <tspan
+                class="value"
+                fill-opacity="0.7"
+                x="0"
+                y="0.7em"
+              >
+                21,370,368
+              </tspan>
+            </text>
+          </g>
+          <g
+            font-family="sans-serif"
+            font-size="12"
+            text-anchor="middle"
+          >
+            <text
+              transform="translate(-89.23992173059759,44.005526579247025)"
+            >
+              <tspan
+                class="name"
+                font-weight="bold"
+                y="-0.4em"
+              >
+                50-54
+              </tspan>
+              <tspan
+                class="value"
+                fill-opacity="0.7"
+                x="0"
+                y="0.7em"
+              >
+                22,525,490
+              </tspan>
+            </text>
+          </g>
+          <g
+            font-family="sans-serif"
+            font-size="12"
+            text-anchor="middle"
+          >
+            <text
+              transform="translate(-99.49986001367475,-0.1669049403949742)"
+            >
+              <tspan
+                class="name"
+                font-weight="bold"
+                y="-0.4em"
+              >
+                55-59
+              </tspan>
+              <tspan
+                class="value"
+                fill-opacity="0.7"
+                x="0"
+                y="0.7em"
+              >
+                21,001,947
+              </tspan>
+            </text>
+          </g>
+          <g
+            font-family="sans-serif"
+            font-size="12"
+            text-anchor="middle"
+          >
+            <text
+              transform="translate(-90.91159599074544,-40.43923483963905)"
+            >
+              <tspan
+                class="name"
+                font-weight="bold"
+                y="-0.4em"
+              >
+                60-64
+              </tspan>
+              <tspan
+                class="value"
+                fill-opacity="0.7"
+                x="0"
+                y="0.7em"
+              >
+                18,415,681
+              </tspan>
+            </text>
+          </g>
+          <g
+            font-family="sans-serif"
+            font-size="12"
+            text-anchor="middle"
+          >
+            <text
+              transform="translate(-71.57350051517253,-69.1193462353674)"
+            >
+              <tspan
+                class="name"
+                font-weight="bold"
+                y="-0.4em"
+              >
+                65-69
+              </tspan>
+              <tspan
+                class="value"
+                fill-opacity="0.7"
+                x="0"
+                y="0.7em"
+              >
+                14,547,446
+              </tspan>
+            </text>
+          </g>
+          <g
+            font-family="sans-serif"
+            font-size="12"
+            text-anchor="middle"
+          >
+            <text
+              transform="translate(-50.74731889253823,-85.58597797080449)"
+            >
+              <tspan
+                class="name"
+                font-weight="bold"
+                y="-0.4em"
+              >
+                70-74
+              </tspan>
+            </text>
+          </g>
+          <g
+            font-family="sans-serif"
+            font-size="12"
+            text-anchor="middle"
+          >
+            <text
+              transform="translate(-33.07084033172977,-93.84332432172911)"
+            />
+          </g>
+          <g
+            font-family="sans-serif"
+            font-size="12"
+            text-anchor="middle"
+          >
+            <text
+              transform="translate(-19.018580918640712,-97.66546769376122)"
+            />
+          </g>
+          <g
+            font-family="sans-serif"
+            font-size="12"
+            text-anchor="middle"
+          >
+            <text
+              transform="translate(-6.41844187233411,-99.29276712798102)"
+            />
+          </g>
+        </svg>
+      </div>
+    </div>
+  </body>,
+  "container": <div>
+    <div
+      class="piechart-container"
+      data-testid="piechart"
+      style="max-width: 500px;"
+    >
+      <h3
+        style="text-align: center;"
+      >
+         
+        U.S. Census Data
+         
+      </h3>
+      <div
+        class="legend"
+      >
+        <div
+          class="legend-element"
+        >
+          <div
+            class="swatch"
+            style="background-color: rgb(128, 128, 128);"
+          />
+          <button
+            style="text-decoration: line-through;"
+          >
+            &lt;5
+          </button>
+        </div>
+        <div
+          class="legend-element"
+        >
+          <div
+            class="swatch"
+            style="background-color: rgb(77, 163, 177);"
+          />
+          <button
+            style="text-decoration: none;"
+          >
+            5-9
+          </button>
+        </div>
+        <div
+          class="legend-element"
+        >
+          <div
+            class="swatch"
+            style="background-color: rgb(101, 186, 170);"
+          />
+          <button
+            style="text-decoration: none;"
+          >
+            10-14
+          </button>
+        </div>
+        <div
+          class="legend-element"
+        >
+          <div
+            class="swatch"
+            style="background-color: rgb(131, 204, 165);"
+          />
+          <button
+            style="text-decoration: none;"
+          >
+            15-19
+          </button>
+        </div>
+        <div
+          class="legend-element"
+        >
+          <div
+            class="swatch"
+            style="background-color: rgb(162, 217, 163);"
+          />
+          <button
+            style="text-decoration: none;"
+          >
+            20-24
+          </button>
+        </div>
+        <div
+          class="legend-element"
+        >
+          <div
+            class="swatch"
+            style="background-color: rgb(191, 229, 160);"
+          />
+          <button
+            style="text-decoration: none;"
+          >
+            25-29
+          </button>
+        </div>
+        <div
+          class="legend-element"
+        >
+          <div
+            class="swatch"
+            style="background-color: rgb(216, 239, 159);"
+          />
+          <button
+            style="text-decoration: none;"
+          >
+            30-34
+          </button>
+        </div>
+        <div
+          class="legend-element"
+        >
+          <div
+            class="swatch"
+            style="background-color: rgb(235, 247, 166);"
+          />
+          <button
+            style="text-decoration: none;"
+          >
+            35-39
+          </button>
+        </div>
+        <div
+          class="legend-element"
+        >
+          <div
+            class="swatch"
+            style="background-color: rgb(247, 250, 175);"
+          />
+          <button
+            style="text-decoration: none;"
+          >
+            40-44
+          </button>
+        </div>
+        <div
+          class="legend-element"
+        >
+          <div
+            class="swatch"
+            style="background-color: rgb(253, 245, 172);"
+          />
+          <button
+            style="text-decoration: none;"
+          >
+            45-49
+          </button>
+        </div>
+        <div
+          class="legend-element"
+        >
+          <div
+            class="swatch"
+            style="background-color: rgb(254, 232, 154);"
+          />
+          <button
+            style="text-decoration: none;"
+          >
+            50-54
+          </button>
+        </div>
+        <div
+          class="legend-element"
+        >
+          <div
+            class="swatch"
+            style="background-color: rgb(254, 213, 133);"
+          />
+          <button
+            style="text-decoration: none;"
+          >
+            55-59
+          </button>
+        </div>
+        <div
+          class="legend-element"
+        >
+          <div
+            class="swatch"
+            style="background-color: rgb(253, 191, 112);"
+          />
+          <button
+            style="text-decoration: none;"
+          >
+            60-64
+          </button>
+        </div>
+        <div
+          class="legend-element"
+        >
+          <div
+            class="swatch"
+            style="background-color: rgb(251, 165, 95);"
+          />
+          <button
+            style="text-decoration: none;"
+          >
+            65-69
+          </button>
+        </div>
+        <div
+          class="legend-element"
+        >
+          <div
+            class="swatch"
+            style="background-color: rgb(247, 136, 81);"
+          />
+          <button
+            style="text-decoration: none;"
+          >
+            70-74
+          </button>
+        </div>
+        <div
+          class="legend-element"
+        >
+          <div
+            class="swatch"
+            style="background-color: rgb(239, 109, 74);"
+          />
+          <button
+            style="text-decoration: none;"
+          >
+            75-79
+          </button>
+        </div>
+        <div
+          class="legend-element"
+        >
+          <div
+            class="swatch"
+            style="background-color: rgb(227, 84, 73);"
+          />
+          <button
+            style="text-decoration: none;"
+          >
+            80-84
+          </button>
+        </div>
+        <div
+          class="legend-element"
+        >
+          <div
+            class="swatch"
+            style="background-color: rgb(209, 60, 75);"
+          />
+          <button
+            style="text-decoration: none;"
+          >
+            ≥85
+          </button>
+        </div>
+      </div>
+      <svg
+        data-testid="piechart-svg"
+        height="400"
+        preserveAspectRatio="xMidYMid meet"
+        viewBox="-250 -200 500 400"
+        width="500"
+      >
+        <path
+          d="M0.497,-198.999A199,199,0,0,1,83.126,-180.807L0,0Z"
+          fill="rgb(77, 163, 177)"
+        >
+          <title>
+            &lt;5: 19,912,018
+          </title>
+        </path>
+        <path
+          d="M84.029,-180.389A199,199,0,0,1,151.856,-128.611L0,0Z"
+          fill="rgb(101, 186, 170)"
+        >
+          <title>
+            5-9: 20,501,982
+          </title>
+        </path>
+        <path
+          d="M152.497,-127.851A199,199,0,0,1,192.741,-49.515L0,0Z"
+          fill="rgb(131, 204, 165)"
+        >
+          <title>
+            10-14: 20,679,786
+          </title>
+        </path>
+        <path
+          d="M192.987,-48.551A199,199,0,0,1,193.944,44.574L0,0Z"
+          fill="rgb(162, 217, 163)"
+        >
+          <title>
+            15-19: 21,354,481
+          </title>
+        </path>
+        <path
+          d="M193.718,45.543A199,199,0,0,1,154.193,125.799L0,0Z"
+          fill="rgb(191, 229, 160)"
+        >
+          <title>
+            20-24: 22,604,232
+          </title>
+        </path>
+        <path
+          d="M153.562,126.569A199,199,0,0,1,84.543,180.149L0,0Z"
+          fill="rgb(216, 239, 159)"
+        >
+          <title>
+            25-29: 21,698,010
+          </title>
+        </path>
+        <path
+          d="M83.641,180.569A199,199,0,0,1,3.751,198.965L0,0Z"
+          fill="rgb(235, 247, 166)"
+        >
+          <title>
+            30-34: 21,183,639
+          </title>
+        </path>
+        <path
+          d="M2.756,198.981A199,199,0,0,1,-81.277,181.645L0,0Z"
+          fill="rgb(247, 250, 175)"
+        >
+          <title>
+            35-39: 19,855,782
+          </title>
+        </path>
+        <path
+          d="M-82.184,181.237A199,199,0,0,1,-152.398,127.969L0,0Z"
+          fill="rgb(253, 245, 172)"
+        >
+          <title>
+            40-44: 20,796,128
+          </title>
+        </path>
+        <path
+          d="M-153.036,127.205A199,199,0,0,1,-194.083,43.964L0,0Z"
+          fill="rgb(254, 232, 154)"
+        >
+          <title>
+            45-49: 21,370,368
+          </title>
+        </path>
+        <path
+          d="M-194.3,42.993A199,199,0,0,1,-194.155,-43.645L0,0Z"
+          fill="rgb(254, 213, 133)"
+        >
+          <title>
+            50-54: 22,525,490
+          </title>
+        </path>
+        <path
+          d="M-193.934,-44.615A199,199,0,0,1,-163.001,-114.156L0,0Z"
+          fill="rgb(253, 191, 112)"
+        >
+          <title>
+            55-59: 21,001,947
+          </title>
+        </path>
+        <path
+          d="M-162.428,-114.97A199,199,0,0,1,-120.565,-158.32L0,0Z"
+          fill="rgb(251, 165, 95)"
+        >
+          <title>
+            60-64: 18,415,681
+          </title>
+        </path>
+        <path
+          d="M-119.772,-158.92A199,199,0,0,1,-81.977,-181.331L0,0Z"
+          fill="rgb(247, 136, 81)"
+        >
+          <title>
+            65-69: 14,547,446
+          </title>
+        </path>
+        <path
+          d="M-81.069,-181.738A199,199,0,0,1,-50.783,-192.411L0,0Z"
+          fill="rgb(239, 109, 74)"
+        >
+          <title>
+            70-74: 10,587,721
+          </title>
+        </path>
+        <path
+          d="M-49.821,-192.663A199,199,0,0,1,-26.114,-197.279L0,0Z"
+          fill="rgb(227, 84, 73)"
+        >
+          <title>
+            75-79: 7,730,129
+          </title>
+        </path>
+        <path
+          d="M-25.127,-197.407A199,199,0,0,1,-0.497,-198.999L0,0Z"
+          fill="rgb(209, 60, 75)"
+        >
+          <title>
+            80-84: 5,811,429
+          </title>
+        </path>
+        <g
+          font-family="sans-serif"
+          font-size="12"
+          text-anchor="middle"
+        >
+          <text
+            transform="translate(21.394990511979774,-97.17254952399003)"
+          >
+            <tspan
+              class="name"
+              font-weight="bold"
+              y="-0.4em"
+            >
+              5-9
+            </tspan>
+            <tspan
+              class="value"
+              fill-opacity="0.7"
+              x="0"
+              y="0.7em"
+            >
+              20,501,982
+            </tspan>
+          </text>
+        </g>
+        <g
+          font-family="sans-serif"
+          font-size="12"
+          text-anchor="middle"
+        >
+          <text
+            transform="translate(60.37515307113261,-79.08913257608346)"
+          >
+            <tspan
+              class="name"
+              font-weight="bold"
+              y="-0.4em"
+            >
+              10-14
+            </tspan>
+            <tspan
+              class="value"
+              fill-opacity="0.7"
+              x="0"
+              y="0.7em"
+            >
+              20,679,786
+            </tspan>
+          </text>
+        </g>
+        <g
+          font-family="sans-serif"
+          font-size="12"
+          text-anchor="middle"
+        >
+          <text
+            transform="translate(88.50345846749421,-45.46853680615341)"
+          >
+            <tspan
+              class="name"
+              font-weight="bold"
+              y="-0.4em"
+            >
+              15-19
+            </tspan>
+            <tspan
+              class="value"
+              fill-opacity="0.7"
+              x="0"
+              y="0.7em"
+            >
+              21,354,481
+            </tspan>
+          </text>
+        </g>
+        <g
+          font-family="sans-serif"
+          font-size="12"
+          text-anchor="middle"
+        >
+          <text
+            transform="translate(99.49474459013622,-1.0226431164186407)"
+          >
+            <tspan
+              class="name"
+              font-weight="bold"
+              y="-0.4em"
+            >
+              20-24
+            </tspan>
+            <tspan
+              class="value"
+              fill-opacity="0.7"
+              x="0"
+              y="0.7em"
+            >
+              22,604,232
+            </tspan>
+          </text>
+        </g>
+        <g
+          font-family="sans-serif"
+          font-size="12"
+          text-anchor="middle"
+        >
+          <text
+            transform="translate(89.26212959385272,43.96046201270231)"
+          >
+            <tspan
+              class="name"
+              font-weight="bold"
+              y="-0.4em"
+            >
+              25-29
+            </tspan>
+            <tspan
+              class="value"
+              fill-opacity="0.7"
+              x="0"
+              y="0.7em"
+            >
+              21,698,010
+            </tspan>
+          </text>
+        </g>
+        <g
+          font-family="sans-serif"
+          font-size="12"
+          text-anchor="middle"
+        >
+          <text
+            transform="translate(61.01477962261577,78.59673445890505)"
+          >
+            <tspan
+              class="name"
+              font-weight="bold"
+              y="-0.4em"
+            >
+              30-34
+            </tspan>
+            <tspan
+              class="value"
+              fill-opacity="0.7"
+              x="0"
+              y="0.7em"
+            >
+              21,183,639
+            </tspan>
+          </text>
+        </g>
+        <g
+          font-family="sans-serif"
+          font-size="12"
+          text-anchor="middle"
+        >
+          <text
+            transform="translate(22.32684228565225,96.96268412926496)"
+          >
+            <tspan
+              class="name"
+              font-weight="bold"
+              y="-0.4em"
+            >
+              35-39
+            </tspan>
+            <tspan
+              class="value"
+              fill-opacity="0.7"
+              x="0"
+              y="0.7em"
+            >
+              19,855,782
+            </tspan>
+          </text>
+        </g>
+        <g
+          font-family="sans-serif"
+          font-size="12"
+          text-anchor="middle"
+        >
+          <text
+            transform="translate(-20.1028431439811,97.44806666901346)"
+          >
+            <tspan
+              class="name"
+              font-weight="bold"
+              y="-0.4em"
+            >
+              40-44
+            </tspan>
+            <tspan
+              class="value"
+              fill-opacity="0.7"
+              x="0"
+              y="0.7em"
+            >
+              20,796,128
+            </tspan>
+          </text>
+        </g>
+        <g
+          font-family="sans-serif"
+          font-size="12"
+          text-anchor="middle"
+        >
+          <text
+            transform="translate(-60.13845601476531,79.26926332545382)"
+          >
+            <tspan
+              class="name"
+              font-weight="bold"
+              y="-0.4em"
+            >
+              45-49
+            </tspan>
+            <tspan
+              class="value"
+              fill-opacity="0.7"
+              x="0"
+              y="0.7em"
+            >
+              21,370,368
+            </tspan>
+          </text>
+        </g>
+        <g
+          font-family="sans-serif"
+          font-size="12"
+          text-anchor="middle"
+        >
+          <text
+            transform="translate(-89.23992173059759,44.005526579247025)"
+          >
+            <tspan
+              class="name"
+              font-weight="bold"
+              y="-0.4em"
+            >
+              50-54
+            </tspan>
+            <tspan
+              class="value"
+              fill-opacity="0.7"
+              x="0"
+              y="0.7em"
+            >
+              22,525,490
+            </tspan>
+          </text>
+        </g>
+        <g
+          font-family="sans-serif"
+          font-size="12"
+          text-anchor="middle"
+        >
+          <text
+            transform="translate(-99.49986001367475,-0.1669049403949742)"
+          >
+            <tspan
+              class="name"
+              font-weight="bold"
+              y="-0.4em"
+            >
+              55-59
+            </tspan>
+            <tspan
+              class="value"
+              fill-opacity="0.7"
+              x="0"
+              y="0.7em"
+            >
+              21,001,947
+            </tspan>
+          </text>
+        </g>
+        <g
+          font-family="sans-serif"
+          font-size="12"
+          text-anchor="middle"
+        >
+          <text
+            transform="translate(-90.91159599074544,-40.43923483963905)"
+          >
+            <tspan
+              class="name"
+              font-weight="bold"
+              y="-0.4em"
+            >
+              60-64
+            </tspan>
+            <tspan
+              class="value"
+              fill-opacity="0.7"
+              x="0"
+              y="0.7em"
+            >
+              18,415,681
+            </tspan>
+          </text>
+        </g>
+        <g
+          font-family="sans-serif"
+          font-size="12"
+          text-anchor="middle"
+        >
+          <text
+            transform="translate(-71.57350051517253,-69.1193462353674)"
+          >
+            <tspan
+              class="name"
+              font-weight="bold"
+              y="-0.4em"
+            >
+              65-69
+            </tspan>
+            <tspan
+              class="value"
+              fill-opacity="0.7"
+              x="0"
+              y="0.7em"
+            >
+              14,547,446
+            </tspan>
+          </text>
+        </g>
+        <g
+          font-family="sans-serif"
+          font-size="12"
+          text-anchor="middle"
+        >
+          <text
+            transform="translate(-50.74731889253823,-85.58597797080449)"
+          >
+            <tspan
+              class="name"
+              font-weight="bold"
+              y="-0.4em"
+            >
+              70-74
+            </tspan>
+          </text>
+        </g>
+        <g
+          font-family="sans-serif"
+          font-size="12"
+          text-anchor="middle"
+        >
+          <text
+            transform="translate(-33.07084033172977,-93.84332432172911)"
+          />
+        </g>
+        <g
+          font-family="sans-serif"
+          font-size="12"
+          text-anchor="middle"
+        >
+          <text
+            transform="translate(-19.018580918640712,-97.66546769376122)"
+          />
+        </g>
+        <g
+          font-family="sans-serif"
+          font-size="12"
+          text-anchor="middle"
+        >
+          <text
+            transform="translate(-6.41844187233411,-99.29276712798102)"
+          />
+        </g>
+      </svg>
+    </div>
+  </div>,
+  "debug": [Function],
+  "findAllByAltText": [Function],
+  "findAllByDisplayValue": [Function],
+  "findAllByLabelText": [Function],
+  "findAllByPlaceholderText": [Function],
+  "findAllByRole": [Function],
+  "findAllByTestId": [Function],
+  "findAllByText": [Function],
+  "findAllByTitle": [Function],
+  "findByAltText": [Function],
+  "findByDisplayValue": [Function],
+  "findByLabelText": [Function],
+  "findByPlaceholderText": [Function],
+  "findByRole": [Function],
+  "findByTestId": [Function],
+  "findByText": [Function],
+  "findByTitle": [Function],
+  "getAllByAltText": [Function],
+  "getAllByDisplayValue": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getByAltText": [Function],
+  "getByDisplayValue": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByDisplayValue": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryByAltText": [Function],
+  "queryByDisplayValue": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "rerender": [Function],
+  "unmount": [Function],
+}
+`;
+
+exports[`Interactivity Pie Chart PieChart legend data selection. 2`] = `
+{
+  "asFragment": [Function],
+  "baseElement": <body>
+    <div>
+      <div
+        class="piechart-container"
+        data-testid="piechart"
+        style="max-width: 500px;"
+      >
+        <h3
+          style="text-align: center;"
+        >
+           
+          U.S. Census Data
+           
+        </h3>
+        <div
+          class="legend"
+        >
+          <div
+            class="legend-element"
+          >
+            <div
+              class="swatch"
+              style="background-color: rgb(66, 136, 181);"
+            />
+            <button
+              style="text-decoration: none;"
+            >
+              &lt;5
+            </button>
+          </div>
+          <div
+            class="legend-element"
+          >
+            <div
+              class="swatch"
+              style="background-color: rgb(77, 163, 177);"
+            />
+            <button
+              style="text-decoration: none;"
+            >
+              5-9
+            </button>
+          </div>
+          <div
+            class="legend-element"
+          >
+            <div
+              class="swatch"
+              style="background-color: rgb(101, 186, 170);"
+            />
+            <button
+              style="text-decoration: none;"
+            >
+              10-14
+            </button>
+          </div>
+          <div
+            class="legend-element"
+          >
+            <div
+              class="swatch"
+              style="background-color: rgb(131, 204, 165);"
+            />
+            <button
+              style="text-decoration: none;"
+            >
+              15-19
+            </button>
+          </div>
+          <div
+            class="legend-element"
+          >
+            <div
+              class="swatch"
+              style="background-color: rgb(162, 217, 163);"
+            />
+            <button
+              style="text-decoration: none;"
+            >
+              20-24
+            </button>
+          </div>
+          <div
+            class="legend-element"
+          >
+            <div
+              class="swatch"
+              style="background-color: rgb(191, 229, 160);"
+            />
+            <button
+              style="text-decoration: none;"
+            >
+              25-29
+            </button>
+          </div>
+          <div
+            class="legend-element"
+          >
+            <div
+              class="swatch"
+              style="background-color: rgb(216, 239, 159);"
+            />
+            <button
+              style="text-decoration: none;"
+            >
+              30-34
+            </button>
+          </div>
+          <div
+            class="legend-element"
+          >
+            <div
+              class="swatch"
+              style="background-color: rgb(235, 247, 166);"
+            />
+            <button
+              style="text-decoration: none;"
+            >
+              35-39
+            </button>
+          </div>
+          <div
+            class="legend-element"
+          >
+            <div
+              class="swatch"
+              style="background-color: rgb(247, 250, 175);"
+            />
+            <button
+              style="text-decoration: none;"
+            >
+              40-44
+            </button>
+          </div>
+          <div
+            class="legend-element"
+          >
+            <div
+              class="swatch"
+              style="background-color: rgb(253, 245, 172);"
+            />
+            <button
+              style="text-decoration: none;"
+            >
+              45-49
+            </button>
+          </div>
+          <div
+            class="legend-element"
+          >
+            <div
+              class="swatch"
+              style="background-color: rgb(254, 232, 154);"
+            />
+            <button
+              style="text-decoration: none;"
+            >
+              50-54
+            </button>
+          </div>
+          <div
+            class="legend-element"
+          >
+            <div
+              class="swatch"
+              style="background-color: rgb(254, 213, 133);"
+            />
+            <button
+              style="text-decoration: none;"
+            >
+              55-59
+            </button>
+          </div>
+          <div
+            class="legend-element"
+          >
+            <div
+              class="swatch"
+              style="background-color: rgb(253, 191, 112);"
+            />
+            <button
+              style="text-decoration: none;"
+            >
+              60-64
+            </button>
+          </div>
+          <div
+            class="legend-element"
+          >
+            <div
+              class="swatch"
+              style="background-color: rgb(251, 165, 95);"
+            />
+            <button
+              style="text-decoration: none;"
+            >
+              65-69
+            </button>
+          </div>
+          <div
+            class="legend-element"
+          >
+            <div
+              class="swatch"
+              style="background-color: rgb(247, 136, 81);"
+            />
+            <button
+              style="text-decoration: none;"
+            >
+              70-74
+            </button>
+          </div>
+          <div
+            class="legend-element"
+          >
+            <div
+              class="swatch"
+              style="background-color: rgb(239, 109, 74);"
+            />
+            <button
+              style="text-decoration: none;"
+            >
+              75-79
+            </button>
+          </div>
+          <div
+            class="legend-element"
+          >
+            <div
+              class="swatch"
+              style="background-color: rgb(227, 84, 73);"
+            />
+            <button
+              style="text-decoration: none;"
+            >
+              80-84
+            </button>
+          </div>
+          <div
+            class="legend-element"
+          >
+            <div
+              class="swatch"
+              style="background-color: rgb(209, 60, 75);"
+            />
+            <button
+              style="text-decoration: none;"
+            >
+              ≥85
+            </button>
+          </div>
+        </div>
+        <svg
+          data-testid="piechart-svg"
+          height="400"
+          preserveAspectRatio="xMidYMid meet"
+          viewBox="-250 -200 500 400"
+          width="500"
+        >
+          <path
+            d="M0.497,-198.999A199,199,0,0,1,76.046,-183.897L0,0Z"
+            fill="rgb(66, 136, 181)"
+          >
+            <title>
+              &lt;5: 19,912,018
+            </title>
+          </path>
+          <path
+            d="M76.965,-183.514A199,199,0,0,1,142.514,-138.891L0,0Z"
+            fill="rgb(77, 163, 177)"
+          >
+            <title>
+              5-9: 20,501,982
+            </title>
+          </path>
+          <path
+            d="M143.207,-138.177A199,199,0,0,1,186.04,-70.64L0,0Z"
+            fill="rgb(101, 186, 170)"
+          >
+            <title>
+              10-14: 20,679,786
+            </title>
+          </path>
+          <path
+            d="M186.391,-69.709A199,199,0,0,1,198.642,11.923L0,0Z"
+            fill="rgb(131, 204, 165)"
+          >
+            <title>
+              15-19: 21,354,481
+            </title>
+          </path>
+          <path
+            d="M198.58,12.916A199,199,0,0,1,173.943,96.668L0,0Z"
+            fill="rgb(162, 217, 163)"
+          >
+            <title>
+              20-24: 22,604,232
+            </title>
+          </path>
+          <path
+            d="M173.458,97.537A199,199,0,0,1,117.881,160.328L0,0Z"
+            fill="rgb(191, 229, 160)"
+          >
+            <title>
+              25-29: 21,698,010
+            </title>
+          </path>
+          <path
+            d="M117.078,160.916A199,199,0,0,1,42.358,194.44L0,0Z"
+            fill="rgb(216, 239, 159)"
+          >
+            <title>
+              30-34: 21,183,639
+            </title>
+          </path>
+          <path
+            d="M41.385,194.649A199,199,0,0,1,-35.435,195.82L0,0Z"
+            fill="rgb(235, 247, 166)"
+          >
+            <title>
+              35-39: 19,855,782
+            </title>
+          </path>
+          <path
+            d="M-36.413,195.64A199,199,0,0,1,-110.87,165.254L0,0Z"
+            fill="rgb(247, 250, 175)"
+          >
+            <title>
+              40-44: 20,796,128
+            </title>
+          </path>
+          <path
+            d="M-111.695,164.697A199,199,0,0,1,-168.95,105.151L0,0Z"
+            fill="rgb(253, 245, 172)"
+          >
+            <title>
+              45-49: 21,370,368
+            </title>
+          </path>
+          <path
+            d="M-169.474,104.305A199,199,0,0,1,-197.776,22.036L0,0Z"
+            fill="rgb(254, 232, 154)"
+          >
+            <title>
+              50-54: 22,525,490
+            </title>
+          </path>
+          <path
+            d="M-197.884,21.047A199,199,0,0,1,-189.817,-59.754L0,0Z"
+            fill="rgb(254, 213, 133)"
+          >
+            <title>
+              55-59: 21,001,947
+            </title>
+          </path>
+          <path
+            d="M-189.516,-60.703A199,199,0,0,1,-155.942,-123.625L0,0Z"
+            fill="rgb(253, 191, 112)"
+          >
+            <title>
+              60-64: 18,415,681
+            </title>
+          </path>
+          <path
+            d="M-155.322,-124.403A199,199,0,0,1,-114.137,-163.015L0,0Z"
+            fill="rgb(251, 165, 95)"
+          >
+            <title>
+              65-69: 14,547,446
+            </title>
+          </path>
+          <path
+            d="M-113.32,-163.583A199,199,0,0,1,-77.25,-183.394L0,0Z"
+            fill="rgb(247, 136, 81)"
+          >
+            <title>
+              70-74: 10,587,721
+            </title>
+          </path>
+          <path
+            d="M-76.332,-183.778A199,199,0,0,1,-47.769,-193.182L0,0Z"
+            fill="rgb(239, 109, 74)"
+          >
+            <title>
+              75-79: 7,730,129
+            </title>
+          </path>
+          <path
+            d="M-46.803,-193.418A199,199,0,0,1,-24.554,-197.479L0,0Z"
+            fill="rgb(227, 84, 73)"
+          >
+            <title>
+              80-84: 5,811,429
+            </title>
+          </path>
+          <g
+            font-family="sans-serif"
+            font-size="12"
+            text-anchor="middle"
+          >
+            <text
+              transform="translate(19.504935423556216,-97.56950083977524)"
+            >
+              <tspan
+                class="name"
+                font-weight="bold"
+                y="-0.4em"
+              >
+                &lt;5
+              </tspan>
+              <tspan
+                class="value"
+                fill-opacity="0.7"
+                x="0"
+                y="0.7em"
+              >
+                19,912,018
+              </tspan>
+            </text>
+          </g>
+          <g
+            font-family="sans-serif"
+            font-size="12"
+            text-anchor="middle"
+          >
+            <text
+              transform="translate(55.99236397703559,-82.25025942976208)"
+            >
+              <tspan
+                class="name"
+                font-weight="bold"
+                y="-0.4em"
+              >
+                5-9
+              </tspan>
+              <tspan
+                class="value"
+                fill-opacity="0.7"
+                x="0"
+                y="0.7em"
+              >
+                20,501,982
+              </tspan>
+            </text>
+          </g>
+          <g
+            font-family="sans-serif"
+            font-size="12"
+            text-anchor="middle"
+          >
+            <text
+              transform="translate(84.0256331097374,-53.29111539935905)"
+            >
+              <tspan
+                class="name"
+                font-weight="bold"
+                y="-0.4em"
+              >
+                10-14
+              </tspan>
+              <tspan
+                class="value"
+                fill-opacity="0.7"
+                x="0"
+                y="0.7em"
+              >
+                20,679,786
+              </tspan>
+            </text>
+          </g>
+          <g
+            font-family="sans-serif"
+            font-size="12"
+            text-anchor="middle"
+          >
+            <text
+              transform="translate(98.39802675576101,-14.767475429894542)"
+            >
+              <tspan
+                class="name"
+                font-weight="bold"
+                y="-0.4em"
+              >
+                15-19
+              </tspan>
+              <tspan
+                class="value"
+                fill-opacity="0.7"
+                x="0"
+                y="0.7em"
+              >
+                21,354,481
+              </tspan>
+            </text>
+          </g>
+          <g
+            font-family="sans-serif"
+            font-size="12"
+            text-anchor="middle"
+          >
+            <text
+              transform="translate(95.45554811736996,28.080034430400328)"
+            >
+              <tspan
+                class="name"
+                font-weight="bold"
+                y="-0.4em"
+              >
+                20-24
+              </tspan>
+              <tspan
+                class="value"
+                fill-opacity="0.7"
+                x="0"
+                y="0.7em"
+              >
+                22,604,232
+              </tspan>
+            </text>
+          </g>
+          <g
+            font-family="sans-serif"
+            font-size="12"
+            text-anchor="middle"
+          >
+            <text
+              transform="translate(74.5070303598619,65.94658768241626)"
+            >
+              <tspan
+                class="name"
+                font-weight="bold"
+                y="-0.4em"
+              >
+                25-29
+              </tspan>
+              <tspan
+                class="value"
+                fill-opacity="0.7"
+                x="0"
+                y="0.7em"
+              >
+                21,698,010
+              </tspan>
+            </text>
+          </g>
+          <g
+            font-family="sans-serif"
+            font-size="12"
+            text-anchor="middle"
+          >
+            <text
+              transform="translate(40.73047080837796,90.78148901470978)"
+            >
+              <tspan
+                class="name"
+                font-weight="bold"
+                y="-0.4em"
+              >
+                30-34
+              </tspan>
+              <tspan
+                class="value"
+                fill-opacity="0.7"
+                x="0"
+                y="0.7em"
+              >
+                21,183,639
+              </tspan>
+            </text>
+          </g>
+          <g
+            font-family="sans-serif"
+            font-size="12"
+            text-anchor="middle"
+          >
+            <text
+              transform="translate(1.5161333426241204,99.48844827258783)"
+            >
+              <tspan
+                class="name"
+                font-weight="bold"
+                y="-0.4em"
+              >
+                35-39
+              </tspan>
+              <tspan
+                class="value"
+                fill-opacity="0.7"
+                x="0"
+                y="0.7em"
+              >
+                19,855,782
+              </tspan>
+            </text>
+          </g>
+          <g
+            font-family="sans-serif"
+            font-size="12"
+            text-anchor="middle"
+          >
+            <text
+              transform="translate(-37.596322722362004,92.12364798332732)"
+            >
+              <tspan
+                class="name"
+                font-weight="bold"
+                y="-0.4em"
+              >
+                40-44
+              </tspan>
+              <tspan
+                class="value"
+                fill-opacity="0.7"
+                x="0"
+                y="0.7em"
+              >
+                20,796,128
+              </tspan>
+            </text>
+          </g>
+          <g
+            font-family="sans-serif"
+            font-size="12"
+            text-anchor="middle"
+          >
+            <text
+              transform="translate(-71.72315773561445,68.96403877697543)"
+            >
+              <tspan
+                class="name"
+                font-weight="bold"
+                y="-0.4em"
+              >
+                45-49
+              </tspan>
+              <tspan
+                class="value"
+                fill-opacity="0.7"
+                x="0"
+                y="0.7em"
+              >
+                21,370,368
+              </tspan>
+            </text>
+          </g>
+          <g
+            font-family="sans-serif"
+            font-size="12"
+            text-anchor="middle"
+          >
+            <text
+              transform="translate(-94.08798007502313,32.36822524331621)"
+            >
+              <tspan
+                class="name"
+                font-weight="bold"
+                y="-0.4em"
+              >
+                50-54
+              </tspan>
+              <tspan
+                class="value"
+                fill-opacity="0.7"
+                x="0"
+                y="0.7em"
+              >
+                22,525,490
+              </tspan>
+            </text>
+          </g>
+          <g
+            font-family="sans-serif"
+            font-size="12"
+            text-anchor="middle"
+          >
+            <text
+              transform="translate(-99.00778967446315,-9.88471465330525)"
+            >
+              <tspan
+                class="name"
+                font-weight="bold"
+                y="-0.4em"
+              >
+                55-59
+              </tspan>
+              <tspan
+                class="value"
+                fill-opacity="0.7"
+                x="0"
+                y="0.7em"
+              >
+                21,001,947
+              </tspan>
+            </text>
+          </g>
+          <g
+            font-family="sans-serif"
+            font-size="12"
+            text-anchor="middle"
+          >
+            <text
+              transform="translate(-87.78526415111476,-46.840125938334175)"
+            >
+              <tspan
+                class="name"
+                font-weight="bold"
+                y="-0.4em"
+              >
+                60-64
+              </tspan>
+              <tspan
+                class="value"
+                fill-opacity="0.7"
+                x="0"
+                y="0.7em"
+              >
+                18,415,681
+              </tspan>
+            </text>
+          </g>
+          <g
+            font-family="sans-serif"
+            font-size="12"
+            text-anchor="middle"
+          >
+            <text
+              transform="translate(-68.05266903804454,-72.58845801364274)"
+            >
+              <tspan
+                class="name"
+                font-weight="bold"
+                y="-0.4em"
+              >
+                65-69
+              </tspan>
+              <tspan
+                class="value"
+                fill-opacity="0.7"
+                x="0"
+                y="0.7em"
+              >
+                14,547,446
+              </tspan>
+            </text>
+          </g>
+          <g
+            font-family="sans-serif"
+            font-size="12"
+            text-anchor="middle"
+          >
+            <text
+              transform="translate(-47.899291558703744,-87.2118562362612)"
+            >
+              <tspan
+                class="name"
+                font-weight="bold"
+                y="-0.4em"
+              >
+                70-74
+              </tspan>
+            </text>
+          </g>
+          <g
+            font-family="sans-serif"
+            font-size="12"
+            text-anchor="middle"
+          >
+            <text
+              transform="translate(-31.114225579733006,-94.51007865076342)"
+            />
+          </g>
+          <g
+            font-family="sans-serif"
+            font-size="12"
+            text-anchor="middle"
+          >
+            <text
+              transform="translate(-17.868052469600684,-97.88249435391191)"
+            />
+          </g>
+          <path
+            d="M-23.566,-197.6A199,199,0,0,1,-0.497,-198.999L0,0Z"
+            fill="rgb(209, 60, 75)"
+          >
+            <title>
+              ≥85: 5,938,752
+            </title>
+          </path>
+          <g
+            font-family="sans-serif"
+            font-size="12"
+            text-anchor="middle"
+          >
+            <text
+              transform="translate(-6.0261272105252655,-99.31734889153338)"
+            />
+          </g>
+        </svg>
+      </div>
+    </div>
+  </body>,
+  "container": <div>
+    <div
+      class="piechart-container"
+      data-testid="piechart"
+      style="max-width: 500px;"
+    >
+      <h3
+        style="text-align: center;"
+      >
+         
+        U.S. Census Data
+         
+      </h3>
+      <div
+        class="legend"
+      >
+        <div
+          class="legend-element"
+        >
+          <div
+            class="swatch"
+            style="background-color: rgb(66, 136, 181);"
+          />
+          <button
+            style="text-decoration: none;"
+          >
+            &lt;5
+          </button>
+        </div>
+        <div
+          class="legend-element"
+        >
+          <div
+            class="swatch"
+            style="background-color: rgb(77, 163, 177);"
+          />
+          <button
+            style="text-decoration: none;"
+          >
+            5-9
+          </button>
+        </div>
+        <div
+          class="legend-element"
+        >
+          <div
+            class="swatch"
+            style="background-color: rgb(101, 186, 170);"
+          />
+          <button
+            style="text-decoration: none;"
+          >
+            10-14
+          </button>
+        </div>
+        <div
+          class="legend-element"
+        >
+          <div
+            class="swatch"
+            style="background-color: rgb(131, 204, 165);"
+          />
+          <button
+            style="text-decoration: none;"
+          >
+            15-19
+          </button>
+        </div>
+        <div
+          class="legend-element"
+        >
+          <div
+            class="swatch"
+            style="background-color: rgb(162, 217, 163);"
+          />
+          <button
+            style="text-decoration: none;"
+          >
+            20-24
+          </button>
+        </div>
+        <div
+          class="legend-element"
+        >
+          <div
+            class="swatch"
+            style="background-color: rgb(191, 229, 160);"
+          />
+          <button
+            style="text-decoration: none;"
+          >
+            25-29
+          </button>
+        </div>
+        <div
+          class="legend-element"
+        >
+          <div
+            class="swatch"
+            style="background-color: rgb(216, 239, 159);"
+          />
+          <button
+            style="text-decoration: none;"
+          >
+            30-34
+          </button>
+        </div>
+        <div
+          class="legend-element"
+        >
+          <div
+            class="swatch"
+            style="background-color: rgb(235, 247, 166);"
+          />
+          <button
+            style="text-decoration: none;"
+          >
+            35-39
+          </button>
+        </div>
+        <div
+          class="legend-element"
+        >
+          <div
+            class="swatch"
+            style="background-color: rgb(247, 250, 175);"
+          />
+          <button
+            style="text-decoration: none;"
+          >
+            40-44
+          </button>
+        </div>
+        <div
+          class="legend-element"
+        >
+          <div
+            class="swatch"
+            style="background-color: rgb(253, 245, 172);"
+          />
+          <button
+            style="text-decoration: none;"
+          >
+            45-49
+          </button>
+        </div>
+        <div
+          class="legend-element"
+        >
+          <div
+            class="swatch"
+            style="background-color: rgb(254, 232, 154);"
+          />
+          <button
+            style="text-decoration: none;"
+          >
+            50-54
+          </button>
+        </div>
+        <div
+          class="legend-element"
+        >
+          <div
+            class="swatch"
+            style="background-color: rgb(254, 213, 133);"
+          />
+          <button
+            style="text-decoration: none;"
+          >
+            55-59
+          </button>
+        </div>
+        <div
+          class="legend-element"
+        >
+          <div
+            class="swatch"
+            style="background-color: rgb(253, 191, 112);"
+          />
+          <button
+            style="text-decoration: none;"
+          >
+            60-64
+          </button>
+        </div>
+        <div
+          class="legend-element"
+        >
+          <div
+            class="swatch"
+            style="background-color: rgb(251, 165, 95);"
+          />
+          <button
+            style="text-decoration: none;"
+          >
+            65-69
+          </button>
+        </div>
+        <div
+          class="legend-element"
+        >
+          <div
+            class="swatch"
+            style="background-color: rgb(247, 136, 81);"
+          />
+          <button
+            style="text-decoration: none;"
+          >
+            70-74
+          </button>
+        </div>
+        <div
+          class="legend-element"
+        >
+          <div
+            class="swatch"
+            style="background-color: rgb(239, 109, 74);"
+          />
+          <button
+            style="text-decoration: none;"
+          >
+            75-79
+          </button>
+        </div>
+        <div
+          class="legend-element"
+        >
+          <div
+            class="swatch"
+            style="background-color: rgb(227, 84, 73);"
+          />
+          <button
+            style="text-decoration: none;"
+          >
+            80-84
+          </button>
+        </div>
+        <div
+          class="legend-element"
+        >
+          <div
+            class="swatch"
+            style="background-color: rgb(209, 60, 75);"
+          />
+          <button
+            style="text-decoration: none;"
+          >
+            ≥85
+          </button>
+        </div>
+      </div>
+      <svg
+        data-testid="piechart-svg"
+        height="400"
+        preserveAspectRatio="xMidYMid meet"
+        viewBox="-250 -200 500 400"
+        width="500"
+      >
+        <path
+          d="M0.497,-198.999A199,199,0,0,1,76.046,-183.897L0,0Z"
+          fill="rgb(66, 136, 181)"
+        >
+          <title>
+            &lt;5: 19,912,018
+          </title>
+        </path>
+        <path
+          d="M76.965,-183.514A199,199,0,0,1,142.514,-138.891L0,0Z"
+          fill="rgb(77, 163, 177)"
+        >
+          <title>
+            5-9: 20,501,982
+          </title>
+        </path>
+        <path
+          d="M143.207,-138.177A199,199,0,0,1,186.04,-70.64L0,0Z"
+          fill="rgb(101, 186, 170)"
+        >
+          <title>
+            10-14: 20,679,786
+          </title>
+        </path>
+        <path
+          d="M186.391,-69.709A199,199,0,0,1,198.642,11.923L0,0Z"
+          fill="rgb(131, 204, 165)"
+        >
+          <title>
+            15-19: 21,354,481
+          </title>
+        </path>
+        <path
+          d="M198.58,12.916A199,199,0,0,1,173.943,96.668L0,0Z"
+          fill="rgb(162, 217, 163)"
+        >
+          <title>
+            20-24: 22,604,232
+          </title>
+        </path>
+        <path
+          d="M173.458,97.537A199,199,0,0,1,117.881,160.328L0,0Z"
+          fill="rgb(191, 229, 160)"
+        >
+          <title>
+            25-29: 21,698,010
+          </title>
+        </path>
+        <path
+          d="M117.078,160.916A199,199,0,0,1,42.358,194.44L0,0Z"
+          fill="rgb(216, 239, 159)"
+        >
+          <title>
+            30-34: 21,183,639
+          </title>
+        </path>
+        <path
+          d="M41.385,194.649A199,199,0,0,1,-35.435,195.82L0,0Z"
+          fill="rgb(235, 247, 166)"
+        >
+          <title>
+            35-39: 19,855,782
+          </title>
+        </path>
+        <path
+          d="M-36.413,195.64A199,199,0,0,1,-110.87,165.254L0,0Z"
+          fill="rgb(247, 250, 175)"
+        >
+          <title>
+            40-44: 20,796,128
+          </title>
+        </path>
+        <path
+          d="M-111.695,164.697A199,199,0,0,1,-168.95,105.151L0,0Z"
+          fill="rgb(253, 245, 172)"
+        >
+          <title>
+            45-49: 21,370,368
+          </title>
+        </path>
+        <path
+          d="M-169.474,104.305A199,199,0,0,1,-197.776,22.036L0,0Z"
+          fill="rgb(254, 232, 154)"
+        >
+          <title>
+            50-54: 22,525,490
+          </title>
+        </path>
+        <path
+          d="M-197.884,21.047A199,199,0,0,1,-189.817,-59.754L0,0Z"
+          fill="rgb(254, 213, 133)"
+        >
+          <title>
+            55-59: 21,001,947
+          </title>
+        </path>
+        <path
+          d="M-189.516,-60.703A199,199,0,0,1,-155.942,-123.625L0,0Z"
+          fill="rgb(253, 191, 112)"
+        >
+          <title>
+            60-64: 18,415,681
+          </title>
+        </path>
+        <path
+          d="M-155.322,-124.403A199,199,0,0,1,-114.137,-163.015L0,0Z"
+          fill="rgb(251, 165, 95)"
+        >
+          <title>
+            65-69: 14,547,446
+          </title>
+        </path>
+        <path
+          d="M-113.32,-163.583A199,199,0,0,1,-77.25,-183.394L0,0Z"
+          fill="rgb(247, 136, 81)"
+        >
+          <title>
+            70-74: 10,587,721
+          </title>
+        </path>
+        <path
+          d="M-76.332,-183.778A199,199,0,0,1,-47.769,-193.182L0,0Z"
+          fill="rgb(239, 109, 74)"
+        >
+          <title>
+            75-79: 7,730,129
+          </title>
+        </path>
+        <path
+          d="M-46.803,-193.418A199,199,0,0,1,-24.554,-197.479L0,0Z"
+          fill="rgb(227, 84, 73)"
+        >
+          <title>
+            80-84: 5,811,429
+          </title>
+        </path>
+        <g
+          font-family="sans-serif"
+          font-size="12"
+          text-anchor="middle"
+        >
+          <text
+            transform="translate(19.504935423556216,-97.56950083977524)"
+          >
+            <tspan
+              class="name"
+              font-weight="bold"
+              y="-0.4em"
+            >
+              &lt;5
+            </tspan>
+            <tspan
+              class="value"
+              fill-opacity="0.7"
+              x="0"
+              y="0.7em"
+            >
+              19,912,018
+            </tspan>
+          </text>
+        </g>
+        <g
+          font-family="sans-serif"
+          font-size="12"
+          text-anchor="middle"
+        >
+          <text
+            transform="translate(55.99236397703559,-82.25025942976208)"
+          >
+            <tspan
+              class="name"
+              font-weight="bold"
+              y="-0.4em"
+            >
+              5-9
+            </tspan>
+            <tspan
+              class="value"
+              fill-opacity="0.7"
+              x="0"
+              y="0.7em"
+            >
+              20,501,982
+            </tspan>
+          </text>
+        </g>
+        <g
+          font-family="sans-serif"
+          font-size="12"
+          text-anchor="middle"
+        >
+          <text
+            transform="translate(84.0256331097374,-53.29111539935905)"
+          >
+            <tspan
+              class="name"
+              font-weight="bold"
+              y="-0.4em"
+            >
+              10-14
+            </tspan>
+            <tspan
+              class="value"
+              fill-opacity="0.7"
+              x="0"
+              y="0.7em"
+            >
+              20,679,786
+            </tspan>
+          </text>
+        </g>
+        <g
+          font-family="sans-serif"
+          font-size="12"
+          text-anchor="middle"
+        >
+          <text
+            transform="translate(98.39802675576101,-14.767475429894542)"
+          >
+            <tspan
+              class="name"
+              font-weight="bold"
+              y="-0.4em"
+            >
+              15-19
+            </tspan>
+            <tspan
+              class="value"
+              fill-opacity="0.7"
+              x="0"
+              y="0.7em"
+            >
+              21,354,481
+            </tspan>
+          </text>
+        </g>
+        <g
+          font-family="sans-serif"
+          font-size="12"
+          text-anchor="middle"
+        >
+          <text
+            transform="translate(95.45554811736996,28.080034430400328)"
+          >
+            <tspan
+              class="name"
+              font-weight="bold"
+              y="-0.4em"
+            >
+              20-24
+            </tspan>
+            <tspan
+              class="value"
+              fill-opacity="0.7"
+              x="0"
+              y="0.7em"
+            >
+              22,604,232
+            </tspan>
+          </text>
+        </g>
+        <g
+          font-family="sans-serif"
+          font-size="12"
+          text-anchor="middle"
+        >
+          <text
+            transform="translate(74.5070303598619,65.94658768241626)"
+          >
+            <tspan
+              class="name"
+              font-weight="bold"
+              y="-0.4em"
+            >
+              25-29
+            </tspan>
+            <tspan
+              class="value"
+              fill-opacity="0.7"
+              x="0"
+              y="0.7em"
+            >
+              21,698,010
+            </tspan>
+          </text>
+        </g>
+        <g
+          font-family="sans-serif"
+          font-size="12"
+          text-anchor="middle"
+        >
+          <text
+            transform="translate(40.73047080837796,90.78148901470978)"
+          >
+            <tspan
+              class="name"
+              font-weight="bold"
+              y="-0.4em"
+            >
+              30-34
+            </tspan>
+            <tspan
+              class="value"
+              fill-opacity="0.7"
+              x="0"
+              y="0.7em"
+            >
+              21,183,639
+            </tspan>
+          </text>
+        </g>
+        <g
+          font-family="sans-serif"
+          font-size="12"
+          text-anchor="middle"
+        >
+          <text
+            transform="translate(1.5161333426241204,99.48844827258783)"
+          >
+            <tspan
+              class="name"
+              font-weight="bold"
+              y="-0.4em"
+            >
+              35-39
+            </tspan>
+            <tspan
+              class="value"
+              fill-opacity="0.7"
+              x="0"
+              y="0.7em"
+            >
+              19,855,782
+            </tspan>
+          </text>
+        </g>
+        <g
+          font-family="sans-serif"
+          font-size="12"
+          text-anchor="middle"
+        >
+          <text
+            transform="translate(-37.596322722362004,92.12364798332732)"
+          >
+            <tspan
+              class="name"
+              font-weight="bold"
+              y="-0.4em"
+            >
+              40-44
+            </tspan>
+            <tspan
+              class="value"
+              fill-opacity="0.7"
+              x="0"
+              y="0.7em"
+            >
+              20,796,128
+            </tspan>
+          </text>
+        </g>
+        <g
+          font-family="sans-serif"
+          font-size="12"
+          text-anchor="middle"
+        >
+          <text
+            transform="translate(-71.72315773561445,68.96403877697543)"
+          >
+            <tspan
+              class="name"
+              font-weight="bold"
+              y="-0.4em"
+            >
+              45-49
+            </tspan>
+            <tspan
+              class="value"
+              fill-opacity="0.7"
+              x="0"
+              y="0.7em"
+            >
+              21,370,368
+            </tspan>
+          </text>
+        </g>
+        <g
+          font-family="sans-serif"
+          font-size="12"
+          text-anchor="middle"
+        >
+          <text
+            transform="translate(-94.08798007502313,32.36822524331621)"
+          >
+            <tspan
+              class="name"
+              font-weight="bold"
+              y="-0.4em"
+            >
+              50-54
+            </tspan>
+            <tspan
+              class="value"
+              fill-opacity="0.7"
+              x="0"
+              y="0.7em"
+            >
+              22,525,490
+            </tspan>
+          </text>
+        </g>
+        <g
+          font-family="sans-serif"
+          font-size="12"
+          text-anchor="middle"
+        >
+          <text
+            transform="translate(-99.00778967446315,-9.88471465330525)"
+          >
+            <tspan
+              class="name"
+              font-weight="bold"
+              y="-0.4em"
+            >
+              55-59
+            </tspan>
+            <tspan
+              class="value"
+              fill-opacity="0.7"
+              x="0"
+              y="0.7em"
+            >
+              21,001,947
+            </tspan>
+          </text>
+        </g>
+        <g
+          font-family="sans-serif"
+          font-size="12"
+          text-anchor="middle"
+        >
+          <text
+            transform="translate(-87.78526415111476,-46.840125938334175)"
+          >
+            <tspan
+              class="name"
+              font-weight="bold"
+              y="-0.4em"
+            >
+              60-64
+            </tspan>
+            <tspan
+              class="value"
+              fill-opacity="0.7"
+              x="0"
+              y="0.7em"
+            >
+              18,415,681
+            </tspan>
+          </text>
+        </g>
+        <g
+          font-family="sans-serif"
+          font-size="12"
+          text-anchor="middle"
+        >
+          <text
+            transform="translate(-68.05266903804454,-72.58845801364274)"
+          >
+            <tspan
+              class="name"
+              font-weight="bold"
+              y="-0.4em"
+            >
+              65-69
+            </tspan>
+            <tspan
+              class="value"
+              fill-opacity="0.7"
+              x="0"
+              y="0.7em"
+            >
+              14,547,446
+            </tspan>
+          </text>
+        </g>
+        <g
+          font-family="sans-serif"
+          font-size="12"
+          text-anchor="middle"
+        >
+          <text
+            transform="translate(-47.899291558703744,-87.2118562362612)"
+          >
+            <tspan
+              class="name"
+              font-weight="bold"
+              y="-0.4em"
+            >
+              70-74
+            </tspan>
+          </text>
+        </g>
+        <g
+          font-family="sans-serif"
+          font-size="12"
+          text-anchor="middle"
+        >
+          <text
+            transform="translate(-31.114225579733006,-94.51007865076342)"
+          />
+        </g>
+        <g
+          font-family="sans-serif"
+          font-size="12"
+          text-anchor="middle"
+        >
+          <text
+            transform="translate(-17.868052469600684,-97.88249435391191)"
+          />
+        </g>
+        <path
+          d="M-23.566,-197.6A199,199,0,0,1,-0.497,-198.999L0,0Z"
+          fill="rgb(209, 60, 75)"
+        >
+          <title>
+            ≥85: 5,938,752
+          </title>
+        </path>
+        <g
+          font-family="sans-serif"
+          font-size="12"
+          text-anchor="middle"
+        >
+          <text
+            transform="translate(-6.0261272105252655,-99.31734889153338)"
+          />
+        </g>
+      </svg>
+    </div>
+  </div>,
+  "debug": [Function],
+  "findAllByAltText": [Function],
+  "findAllByDisplayValue": [Function],
+  "findAllByLabelText": [Function],
+  "findAllByPlaceholderText": [Function],
+  "findAllByRole": [Function],
+  "findAllByTestId": [Function],
+  "findAllByText": [Function],
+  "findAllByTitle": [Function],
+  "findByAltText": [Function],
+  "findByDisplayValue": [Function],
+  "findByLabelText": [Function],
+  "findByPlaceholderText": [Function],
+  "findByRole": [Function],
+  "findByTestId": [Function],
+  "findByText": [Function],
+  "findByTitle": [Function],
+  "getAllByAltText": [Function],
+  "getAllByDisplayValue": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getByAltText": [Function],
+  "getByDisplayValue": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByDisplayValue": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryByAltText": [Function],
+  "queryByDisplayValue": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "rerender": [Function],
+  "unmount": [Function],
+}
+`;
