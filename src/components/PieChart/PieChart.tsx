@@ -27,6 +27,9 @@ export interface PieChartProps {
     radiusInner?: number;
     radiusOuter?: number;
 
+    upperTextThreshold?: number,
+    lowerTextThreshold?: number,
+
     marginTop?: number;
     marginBottom?: number;
     marginLeft?: number;
@@ -45,6 +48,8 @@ function PieChart({
     legendPos="top",
     radiusInner = 0.67,
     radiusOuter = 1,
+    upperTextThreshold = .2,
+    lowerTextThreshold = .25,
     marginTop = 0,
     marginBottom = 20,
     marginLeft = 20,
@@ -193,13 +198,14 @@ function PieChart({
                     .append("text")
                     .attr("transform", d => `translate(${arc.centroid(d)})`);
             
-                text.append("tspan")
+                text.filter(d => (Math.round(d.endAngle * 100) - (Math.round(d.startAngle * 100)) > Math.round(upperTextThreshold * 100)))
+                    .append("tspan")
                     .attr("class", "name")
                     .attr("y", "-0.4em")
                     .attr("font-weight", "bold")
                     .text(d => d.data.name);
                 
-                text.filter(d => (d.endAngle - d.startAngle) > 0.25)
+                text.filter(d => (Math.round(d.endAngle * 100) - (Math.round(d.startAngle * 100)) > Math.round(lowerTextThreshold * 100)))
                     .append("tspan")
                     .attr("class", "value")
                     .attr("x", 0)
@@ -212,13 +218,20 @@ function PieChart({
                 update.select("text")
                     .attr("transform", d => `translate(${arc.centroid(d)})`);
 
-                update.select("tspan.name")
-                    .text(d => d.data.name);
-               
-                const slicesToUpdate = update.filter(d => (d.endAngle - d.startAngle) > 0.25);
-                slicesToUpdate.selectAll("tspan.value").remove(); 
+                update.selectAll("tspan.name").remove(); 
+                update.selectAll("tspan.value").remove(); 
 
-                slicesToUpdate.select("text")
+                const sliceNamesToUpdate = update.filter(d => (Math.round(d.endAngle * 100) - (Math.round(d.startAngle * 100)) > Math.round(upperTextThreshold * 100)));
+
+                sliceNamesToUpdate.select("text")
+                .append("tspan")
+                .attr("class", "name")
+                .attr("y", "-0.4em")
+                .attr("font-weight", "bold")
+                .text(d => d.data.name);
+               
+                const sliceValuesToUpdate = update.filter(d => (Math.round(d.endAngle * 100) - (Math.round(d.startAngle * 100)) > Math.round(lowerTextThreshold * 100)));
+                sliceValuesToUpdate.select("text")
                     .append("tspan") 
                     .attr("class", "value")
                     .attr("x", 0)
@@ -230,7 +243,7 @@ function PieChart({
             function(exit) {
                 return exit.remove();
             })
-    }, [data, height, width, radiusInner, radiusOuter, marginTop, marginLeft, marginRight, marginBottom, selected]);
+    }, [data, height, width, radiusInner, radiusOuter, upperTextThreshold, lowerTextThreshold, marginTop, marginLeft, marginRight, marginBottom, selected]);
 
 function Title() {
     if (title === undefined || title === null || title === "") {
@@ -260,9 +273,6 @@ function Legend() {
         // A deep copy of the state array.
         let state = legendState.map((d) => JSON.parse(JSON.stringify(d)));
         let selectedState = selected.map((d) => JSON.parse(JSON.stringify(d)));
-        console.log(state);
-        console.log(selectedState);
-        console.log(d);
 
         let item = state.find((element) => element.id === d);
 
