@@ -16,67 +16,57 @@ export const Stacked: Story = {
   args: {
     data: [
       {
-        id: "lol",
+        id: "Central",
         x: 3,
-        y: "what"
+        y: "Dolor"
       },
       {
-        id: "op",
+        id: "East",
         x: 12,
-        y: "what"
+        y: "Dolor"
       },
       {
-        id: "laol",
+        id: "West",
         x: 13,
-        y: "what"
+        y: "Dolor"
       }, 
       {
-        id: "lol",
+        id: "Central",
         x: 3,
-        y: "ses"
+        y: "Sit"
       },
       {
-        id: "op",
+        id: "East",
         x: 21,
-        y: "ses"
+        y: "Sit"
       },
       {
-        id: "laol",
+        id: "West",
         x: 31,
-        y: "ses"
+        y: "Sit"
       }, 
       {
-        id: "lol",
+        id: "Central",
         x: 2,
-        y: "ex"
+        y: "Amet"
       },
       {
-        id: "op",
+        id: "East",
         x: 42,
-        y: "ex"
+        y: "Amet"
       },
       {
-        id: "laol",
+        id: "West",
         x: 231,
-        y: "ex"
-      }, 
-      {
-        id: "ladl",
-        x: 154,
-        y: "ex"
-      },
-      {
-        id: "rawe",
-        x: 79,
-        y: "ex"
-      }                           
+        y: "Amet"
+      }
     ],
     alignment: "horizontal",
     type: "Stacked",
     title: "Stacked Horizontal Bar Chart",
     width: 500,
     height: 300,
-    marginLeft: 25,
+    marginLeft: 35,
   },
 };
 
@@ -85,59 +75,59 @@ export const Grouped: Story = {
   args: {
     data: [
       {
-        id: "lol",
+        id: "Central",
         x: 3,
-        y: "what"
+        y: "Dolor"
       },
       {
-        id: "op",
+        id: "East",
         x: 12,
-        y: "what"
+        y: "Dolor"
       },
       {
-        id: "laol",
+        id: "West",
         x: 13,
-        y: "what"
+        y: "Dolor"
       }, 
       {
-        id: "lol",
+        id: "Central",
         x: 3,
-        y: "ses"
+        y: "Sit"
       },
       {
-        id: "op",
+        id: "East",
         x: 21,
-        y: "ses"
+        y: "Sit"
       },
       {
-        id: "laol",
+        id: "West",
         x: 31,
-        y: "ses"
+        y: "Sit"
       }, 
       {
-        id: "lol",
+        id: "Central",
         x: 2,
-        y: "ex"
+        y: "Amet"
       },
       {
-        id: "op",
+        id: "East",
         x: 42,
-        y: "ex"
+        y: "Amet"
       },
       {
-        id: "laol",
+        id: "West",
         x: 231,
-        y: "ex"
+        y: "Amet"
       }, 
       {
-        id: "ladl",
+        id: "South",
         x: 154,
-        y: "ex"
+        y: "Amet"
       },
       {
-        id: "rawe",
+        id: "North",
         x: 79,
-        y: "ex"
+        y: "Amet"
       }                           
     ],
     alignment: "horizontal",
@@ -145,7 +135,7 @@ export const Grouped: Story = {
     title: "Grouped Horizontal Bar Chart",
     width: 500,
     height: 300,
-    marginLeft: 25,
+    marginLeft: 35,
   },
 };
 
@@ -154,15 +144,15 @@ export const Horizontal: Story = {
     data: [
       {
         x: 3,
-        y: "what"
+        y: "Dolor"
       },
       {
         x: 21,
-        y: "ses"
+        y: "Sit"
       },
       {
         x: 31,
-        y: "ex"
+        y: "Amet"
       },                       
     ],
     alignment: "horizontal",
@@ -170,7 +160,7 @@ export const Horizontal: Story = {
     title: "Horizontal Bar Chart",
     width: 500,
     height: 300,
-    marginLeft: 25,
+    marginLeft: 35,
   },
 };
 
@@ -178,15 +168,15 @@ export const Vertical: Story = {
   args: {
     data: [
       {
-        x: "what",
+        x: "Dolor",
         y: 20
       },
       {
-        x: "ses",
+        x: "Sit",
         y: 42
       },
       {
-        x: "ex",
+        x: "Amet",
         y: 10
       },                       
     ],
@@ -195,7 +185,7 @@ export const Vertical: Story = {
     title: "Vertical Bar Chart",
     width: 500,
     height: 300,
-    marginLeft: 25,
+    marginLeft: 35,
   },
 };
 
@@ -203,59 +193,59 @@ export const StackedVertical: Story = {
   args: {
     data: [
       {
-        id: "lol",
+        id: "Central",
         y: 3,
-        x: "what"
+        x: "Dolor"
       },
       {
-        id: "op",
+        id: "East",
         y: 12,
-        x: "what"
+        x: "Dolor"
       },
       {
-        id: "laol",
+        id: "West",
         y: 13,
-        x: "what"
+        x: "Dolor"
       }, 
       {
-        id: "lol",
+        id: "Central",
         y: 3,
-        x: "ses"
+        x: "Sit"
       },
       {
-        id: "op",
+        id: "East",
         y: 21,
-        x: "ses"
+        x: "Sit"
       },
       {
-        id: "laol",
+        id: "West",
         y: 31,
-        x: "ses"
+        x: "Sit"
       }, 
       {
-        id: "lol",
+        id: "Central",
         y: 2,
-        x: "ex"
+        x: "Amet"
       },
       {
-        id: "op",
+        id: "East",
         y: 42,
-        x: "ex"
+        x: "Amet"
       },
       {
-        id: "laol",
+        id: "West",
         y: 231,
-        x: "ex"
+        x: "Amet"
       }, 
       {
-        id: "ladl",
+        id: "South",
         y: 154,
-        x: "ex"
+        x: "Amet"
       },
       {
-        id: "rawe",
+        id: "North",
         y: 79,
-        x: "ex"
+        x: "Amet"
       }                           
     ],
     alignment: "vertical",
@@ -263,7 +253,7 @@ export const StackedVertical: Story = {
     title: "Stacked Vertical Bar Chart",
     width: 500,
     height: 300,
-    marginLeft: 25,
+    marginLeft: 35,
   },
 };
 
@@ -271,59 +261,59 @@ export const GroupedVertical: Story = {
   args: {
     data: [
       {
-        id: "lol",
+        id: "Central",
         y: 3,
-        x: "what"
+        x: "Dolor"
       },
       {
-        id: "op",
+        id: "East",
         y: 12,
-        x: "what"
+        x: "Dolor"
       },
       {
-        id: "laol",
+        id: "West",
         y: 13,
-        x: "what"
+        x: "Dolor"
       }, 
       {
-        id: "lol",
+        id: "Central",
         y: 3,
-        x: "ses"
+        x: "Sit"
       },
       {
-        id: "op",
+        id: "East",
         y: 21,
-        x: "ses"
+        x: "Sit"
       },
       {
-        id: "laol",
+        id: "West",
         y: 31,
-        x: "ses"
+        x: "Sit"
       }, 
       {
-        id: "lol",
+        id: "Central",
         y: 2,
-        x: "ex"
+        x: "Amet"
       },
       {
-        id: "op",
+        id: "East",
         y: 42,
-        x: "ex"
+        x: "Amet"
       },
       {
-        id: "laol",
+        id: "West",
         y: 231,
-        x: "ex"
+        x: "Amet"
       }, 
       {
-        id: "ladl",
+        id: "South",
         y: 154,
-        x: "ex"
+        x: "Amet"
       },
       {
-        id: "rawe",
+        id: "North",
         y: 79,
-        x: "ex"
+        x: "Amet"
       }                           
     ],
     alignment: "vertical",
@@ -331,7 +321,7 @@ export const GroupedVertical: Story = {
     title: "Grouped Vertical Bar Chart",
     width: 500,
     height: 300,
-    marginLeft: 25,
+    marginLeft: 35,
   },
 };
 
