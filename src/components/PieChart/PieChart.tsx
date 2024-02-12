@@ -29,12 +29,6 @@ export interface PieChartProps {
 
     upperTextThreshold?: number,
     lowerTextThreshold?: number,
-
-    marginTop?: number;
-    marginBottom?: number;
-    marginLeft?: number;
-    marginRight?: number;
-
 }
 
 function PieChart({
@@ -49,11 +43,7 @@ function PieChart({
     radiusInner = 0.67,
     radiusOuter = 1,
     upperTextThreshold = .2,
-    lowerTextThreshold = .25,
-    marginTop = 0,
-    marginBottom = 20,
-    marginLeft = 20,
-    marginRight = 20,
+    lowerTextThreshold = .25
 }: PieChartProps) {
     const svgRef = useRef();
     const [legendState, setLegendState] = useState<[{id: string, backgroundColor: string, textDecoration: string}]>([]);
@@ -249,7 +239,7 @@ function PieChart({
             function(exit) {
                 return exit.remove();
             })
-    }, [data, height, width, radiusInner, radiusOuter, upperTextThreshold, lowerTextThreshold, marginTop, marginLeft, marginRight, marginBottom, selected]);
+    }, [data, height, width, radiusInner, radiusOuter, upperTextThreshold, lowerTextThreshold, selected]);
 
 function Title() {
     if (title === undefined || title === null || title === "") {
